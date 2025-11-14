@@ -38,13 +38,6 @@ app.get("/", (req, res) => {
   res.send("Welcome to Momento Social Network API!");
 });
 
-// Routes will be added here
-// UserRoutes(app, db);
-// PostRoutes(app, db);
-// etc.
-
 const port = process.env.PORT || 4000;
-app.listen(port, () => {
-  console.log(`Momento backend server running on port ${port}`);
-});
+app.listen(port);
 
