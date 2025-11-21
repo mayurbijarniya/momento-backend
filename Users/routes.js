@@ -3,6 +3,7 @@ import upload from "../middleware/upload.js";
 import multer from "multer";
 import path from "path";
 import { fileURLToPath } from "url";
+import bcrypt from "bcryptjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -22,7 +23,12 @@ export default function UserRoutes(app) {
         res.status(400).json({ message: "Email already registered" });
         return;
       }
-      const currentUser = await dao.createUser(req.body);
+      const hashedPassword = await bcrypt.hash(req.body.password, 10);
+      const userData = {
+        ...req.body,
+        password: hashedPassword,
+      };
+      const currentUser = await dao.createUser(userData);
       req.session["currentUser"] = currentUser;
       res.json(currentUser);
     } catch (error) {
@@ -45,16 +51,25 @@ export default function UserRoutes(app) {
 
       let currentUser = null;
 
-      // Check if input is an email (contains @) or username
       if (email.includes("@")) {
-        // Input is an email
-        currentUser = await dao.findUserByEmailCredentials(email, password);
+        currentUser = await dao.findUserByEmail(email);
       } else {
-        // Input is a username
-        currentUser = await dao.findUserByCredentials(email, password);
+        currentUser = await dao.findUserByUsername(email);
       }
 
-      if (currentUser) {
+      if (!currentUser) {
+        res
+          .status(401)
+          .json({ message: "Invalid credentials. Please try again." });
+        return;
+      }
+
+      const isPasswordValid = await bcrypt.compare(
+        password,
+        currentUser.password
+      );
+
+      if (isPasswordValid) {
         req.session["currentUser"] = currentUser;
         res.json(currentUser);
       } else {
@@ -133,7 +148,6 @@ export default function UserRoutes(app) {
   };
   app.get("/api/users/:userId", findUserById);
 
-  // Upload profile image endpoint
   const uploadProfileImage = async (req, res) => {
     try {
       if (!req.file) {
@@ -141,7 +155,6 @@ export default function UserRoutes(app) {
         return;
       }
 
-      // Generate URL for the uploaded file using environment variable
       const serverUrl =
         process.env.SERVER_URL ||
         `http://localhost:${process.env.PORT || 4000}`;
@@ -184,7 +197,12 @@ export default function UserRoutes(app) {
   const updateUser = async (req, res) => {
     try {
       const { userId } = req.params;
-      const userUpdates = req.body;
+      const userUpdates = { ...req.body };
+      
+      if (userUpdates.password) {
+        userUpdates.password = await bcrypt.hash(userUpdates.password, 10);
+      }
+      
       await dao.updateUser(userId, userUpdates);
       const updatedUser = await dao.findUserById(userId);
       if (!updatedUser) {
@@ -219,9 +237,7 @@ export default function UserRoutes(app) {
       const { userId } = req.params;
       const currentUser = req.session["currentUser"];
 
-      // Check if user is deleting their own account
       if (currentUser && currentUser._id === userId) {
-        // Destroy session if user is deleting their own account
         req.session.destroy((err) => {
           if (err) {
             console.error("Error destroying session:", err);
