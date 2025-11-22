@@ -7,7 +7,6 @@ export default function PostsDao() {
       const newPost = { ...post, _id: uuidv4() };
       return await model.create(newPost);
     } catch (error) {
-      console.error("Error in createPost:", error);
       throw error;
     }
   };
@@ -16,7 +15,6 @@ export default function PostsDao() {
     try {
       return await model.find().populate("creator").sort({ createdAt: -1 });
     } catch (error) {
-      console.error("Error in findAllPosts:", error);
       throw error;
     }
   };
@@ -25,7 +23,6 @@ export default function PostsDao() {
     try {
       return await model.findById(postId).populate("creator");
     } catch (error) {
-      console.error("Error in findPostById:", error);
       throw error;
     }
   };
@@ -34,7 +31,6 @@ export default function PostsDao() {
     try {
       return await model.find({ creator: userId }).populate("creator").sort({ createdAt: -1 });
     } catch (error) {
-      console.error("Error in findPostsByCreator:", error);
       throw error;
     }
   };
@@ -44,7 +40,6 @@ export default function PostsDao() {
       const updatedPost = { ...postUpdates, updatedAt: new Date() };
       return await model.updateOne({ _id: postId }, { $set: updatedPost });
     } catch (error) {
-      console.error("Error in updatePost:", error);
       throw error;
     }
   };
@@ -53,27 +48,62 @@ export default function PostsDao() {
     try {
       return await model.findByIdAndDelete(postId);
     } catch (error) {
-      console.error("Error in deletePost:", error);
       throw error;
     }
   };
 
-  const likePost = async (postId, userId) => {
+  const likePost = async (postId, likesArray) => {
     try {
-      const post = await model.findById(postId);
-      if (!post) {
+      if (!Array.isArray(likesArray)) {
+        throw new Error("likesArray must be an array");
+      }
+      
+      const result = await model.updateOne(
+        { _id: postId },
+        { 
+          $set: { 
+            likes: likesArray,
+            updatedAt: new Date()
+          } 
+        }
+      );
+      
+      if (result.matchedCount === 0) {
         throw new Error("Post not found");
       }
-      const isLiked = post.likes.includes(userId);
-      if (isLiked) {
-        post.likes = post.likes.filter((id) => id.toString() !== userId);
-      } else {
-        post.likes.push(userId);
-      }
-      await post.save();
-      return post;
+      
+      const updatedPost = await model.findOne({ _id: postId });
+      return updatedPost;
     } catch (error) {
-      console.error("Error in likePost:", error);
+      throw error;
+    }
+  };
+
+  const searchPosts = async (searchTerm) => {
+    try {
+      const regex = new RegExp(searchTerm, "i");
+      return await model
+        .find({
+          $or: [
+            { caption: { $regex: regex } },
+            { location: { $regex: regex } },
+            { tags: { $in: [regex] } },
+          ],
+        })
+        .populate("creator")
+        .sort({ createdAt: -1 });
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const findPostsLikedByUser = async (userId) => {
+    try {
+      return await model
+        .find({ likes: userId })
+        .populate("creator")
+        .sort({ createdAt: -1 });
+    } catch (error) {
       throw error;
     }
   };
@@ -86,6 +116,8 @@ export default function PostsDao() {
     updatePost,
     deletePost,
     likePost,
+    searchPosts,
+    findPostsLikedByUser,
   };
 }
 
