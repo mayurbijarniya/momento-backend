@@ -10,7 +10,6 @@ export default function SavesDao() {
       const newSave = { _id: `${userId}-${postId}`, user: userId, post: postId };
       return await model.create(newSave);
     } catch (error) {
-      console.error("Error in savePost:", error);
       throw error;
     }
   };
@@ -19,17 +18,18 @@ export default function SavesDao() {
     try {
       return await model.deleteOne({ user: userId, post: postId });
     } catch (error) {
-      console.error("Error in unsavePost:", error);
       throw error;
     }
   };
 
   const findSavedPostsByUser = async (userId) => {
     try {
-      const saves = await model.find({ user: userId }).populate("post");
+      const saves = await model.find({ user: userId }).populate({
+        path: "post",
+        populate: { path: "creator" },
+      });
       return saves.map((save) => save.post).filter((post) => post !== null);
     } catch (error) {
-      console.error("Error in findSavedPostsByUser:", error);
       throw error;
     }
   };
@@ -39,7 +39,6 @@ export default function SavesDao() {
       const save = await model.findOne({ user: userId, post: postId });
       return save !== null;
     } catch (error) {
-      console.error("Error in checkIfPostSaved:", error);
       throw error;
     }
   };
