@@ -32,7 +32,6 @@ export default function UserRoutes(app) {
       req.session["currentUser"] = currentUser;
       res.json(currentUser);
     } catch (error) {
-      console.error("Error in signup route:", error);
       res.status(500).json({ error: "Failed to sign up user" });
     }
   };
@@ -78,7 +77,6 @@ export default function UserRoutes(app) {
           .json({ message: "Invalid credentials. Please try again." });
       }
     } catch (error) {
-      console.error("Error in signin route:", error);
       res.status(500).json({ error: "Failed to sign in user" });
     }
   };
@@ -89,7 +87,6 @@ export default function UserRoutes(app) {
       req.session.destroy();
       res.sendStatus(200);
     } catch (error) {
-      console.error("Error in signout route:", error);
       res.status(500).json({ error: "Failed to sign out" });
     }
   };
@@ -104,7 +101,6 @@ export default function UserRoutes(app) {
       }
       res.json(currentUser);
     } catch (error) {
-      console.error("Error in profile route:", error);
       res.status(500).json({ error: "Failed to fetch profile" });
     }
   };
@@ -126,7 +122,6 @@ export default function UserRoutes(app) {
       const users = await dao.findAllUsers();
       res.json(users);
     } catch (error) {
-      console.error("Error in findAllUsers route:", error);
       res.status(500).json({ error: "Failed to fetch users" });
     }
   };
@@ -142,7 +137,6 @@ export default function UserRoutes(app) {
       }
       res.json(user);
     } catch (error) {
-      console.error("Error in findUserById route:", error);
       res.status(500).json({ error: "Failed to fetch user" });
     }
   };
@@ -166,7 +160,6 @@ export default function UserRoutes(app) {
         imageId,
       });
     } catch (error) {
-      console.error("Error in uploadProfileImage:", error);
       res.status(500).json({ error: "Failed to upload image" });
     }
   };
@@ -175,7 +168,6 @@ export default function UserRoutes(app) {
     (req, res, next) => {
       upload.single("file")(req, res, (err) => {
         if (err) {
-          console.error("Multer error:", err);
           if (err instanceof multer.MulterError) {
             if (err.code === "LIMIT_FILE_SIZE") {
               return res
@@ -215,7 +207,6 @@ export default function UserRoutes(app) {
       }
       res.json(updatedUser);
     } catch (error) {
-      console.error("Error in updateUser route:", error);
       res.status(500).json({ error: "Failed to update user" });
     }
   };
@@ -226,7 +217,6 @@ export default function UserRoutes(app) {
       const user = await dao.createUser(req.body);
       res.json(user);
     } catch (error) {
-      console.error("Error in createUser route:", error);
       res.status(500).json({ error: "Failed to create user" });
     }
   };
@@ -238,17 +228,12 @@ export default function UserRoutes(app) {
       const currentUser = req.session["currentUser"];
 
       if (currentUser && currentUser._id === userId) {
-        req.session.destroy((err) => {
-          if (err) {
-            console.error("Error destroying session:", err);
-          }
-        });
+        req.session.destroy();
       }
 
       const status = await dao.deleteUser(userId);
       res.json(status);
     } catch (error) {
-      console.error("Error in deleteUser route:", error);
       res.status(500).json({ error: "Failed to delete user" });
     }
   };

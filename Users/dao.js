@@ -7,7 +7,6 @@ export default function UsersDao() {
       const newUser = { ...user, _id: uuidv4() };
       return await model.create(newUser);
     } catch (error) {
-      console.error("Error in createUser:", error);
       throw error;
     }
   };
@@ -16,7 +15,7 @@ export default function UsersDao() {
     try {
       return await model.find();
     } catch (error) {
-      console.error("Error in findAllUsers:", error);
+("Error in findAllUsers:", error);
       throw error;
     }
   };
@@ -25,7 +24,7 @@ export default function UsersDao() {
     try {
       return await model.findById(userId);
     } catch (error) {
-      console.error("Error in findUserById:", error);
+("Error in findUserById:", error);
       throw error;
     }
   };
@@ -37,7 +36,7 @@ export default function UsersDao() {
         $or: [{ name: { $regex: regex } }, { username: { $regex: regex } }],
       });
     } catch (error) {
-      console.error("Error in findUsersByPartialName:", error);
+("Error in findUsersByPartialName:", error);
       throw error;
     }
   };
@@ -46,7 +45,7 @@ export default function UsersDao() {
     try {
       return await model.find({ role: role });
     } catch (error) {
-      console.error("Error in findUsersByRole:", error);
+("Error in findUsersByRole:", error);
       throw error;
     }
   };
@@ -55,7 +54,7 @@ export default function UsersDao() {
     try {
       return await model.findOne({ username: username });
     } catch (error) {
-      console.error("Error in findUserByUsername:", error);
+("Error in findUserByUsername:", error);
       throw error;
     }
   };
@@ -64,7 +63,7 @@ export default function UsersDao() {
     try {
       return await model.findOne({ email: email });
     } catch (error) {
-      console.error("Error in findUserByEmail:", error);
+("Error in findUserByEmail:", error);
       throw error;
     }
   };
@@ -73,7 +72,7 @@ export default function UsersDao() {
     try {
       return await model.findOne({ username: username, password: password });
     } catch (error) {
-      console.error("Error in findUserByCredentials:", error);
+("Error in findUserByCredentials:", error);
       throw error;
     }
   };
@@ -82,7 +81,7 @@ export default function UsersDao() {
     try {
       return await model.findOne({ email: email, password: password });
     } catch (error) {
-      console.error("Error in findUserByEmailCredentials:", error);
+("Error in findUserByEmailCredentials:", error);
       throw error;
     }
   };
@@ -92,7 +91,7 @@ export default function UsersDao() {
       const updatedUser = { ...user, updatedAt: new Date() };
       return await model.updateOne({ _id: userId }, { $set: updatedUser });
     } catch (error) {
-      console.error("Error in updateUser:", error);
+("Error in updateUser:", error);
       throw error;
     }
   };
@@ -101,7 +100,7 @@ export default function UsersDao() {
     try {
       return await model.findByIdAndDelete(userId);
     } catch (error) {
-      console.error("Error in deleteUser:", error);
+("Error in deleteUser:", error);
       throw error;
     }
   };
