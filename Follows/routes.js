@@ -1,7 +1,9 @@
 import FollowsDao from "./dao.js";
+import NotificationsDao from "../Notifications/dao.js";
 
 export default function FollowRoutes(app) {
   const dao = FollowsDao();
+  const notificationsDao = NotificationsDao();
 
   const followUser = async (req, res) => {
     try {
@@ -18,6 +20,19 @@ export default function FollowRoutes(app) {
       }
 
       const follow = await dao.followUser(currentUser._id, followingId);
+      
+      // Create notification for the user being followed
+      try {
+        await notificationsDao.createNotification({
+          user: followingId,
+          actor: currentUser._id,
+          type: "FOLLOW",
+        });
+      } catch (notifError) {
+        console.error("Error creating follow notification:", notifError);
+        // Don't fail the request if notification creation fails
+      }
+      
       res.json(follow);
     } catch (error) {
       if (error.message === "Cannot follow yourself") {

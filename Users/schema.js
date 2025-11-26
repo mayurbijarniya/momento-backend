@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema(
     imageId: String,
     role: {
       type: String,
-      enum: ["USER", "CRITIC", "ADMIN"],
+      enum: ["USER", "ADMIN"],
       default: "USER",
     },
     createdAt: { type: Date, default: Date.now },

@@ -1,4 +1,5 @@
 import PostsDao from "./dao.js";
+import NotificationsDao from "../Notifications/dao.js";
 import upload from "../middleware/upload.js";
 import multer from "multer";
 import path from "path";
@@ -10,6 +11,7 @@ const __dirname = path.dirname(__filename);
 
 export default function PostRoutes(app) {
   const dao = PostsDao();
+  const notificationsDao = NotificationsDao();
 
   const createPost = async (req, res) => {
     try {
@@ -20,7 +22,9 @@ export default function PostRoutes(app) {
 
       const currentUser = req.session["currentUser"];
       if (!currentUser) {
-        res.status(401).json({ message: "You must be logged in to create a post" });
+        res
+          .status(401)
+          .json({ message: "You must be logged in to create a post" });
         return;
       }
 
@@ -31,7 +35,10 @@ export default function PostRoutes(app) {
       const imageId = req.file.filename;
 
       const tags = req.body.tags
-        ? req.body.tags.replace(/ /g, "").split(",").filter((tag) => tag)
+        ? req.body.tags
+            .replace(/ /g, "")
+            .split(",")
+            .filter((tag) => tag)
         : [];
 
       const postData = {
@@ -211,7 +218,11 @@ export default function PostRoutes(app) {
         return;
       }
 
-      if (post.creator._id !== currentUser._id) {
+      // Allow users to delete their own posts, or admins to delete any post
+      if (
+        post.creator._id !== currentUser._id &&
+        currentUser.role !== "ADMIN"
+      ) {
         res.status(403).json({ message: "You can only delete your own posts" });
         return;
       }
@@ -246,6 +257,21 @@ export default function PostRoutes(app) {
         return;
       }
 
+      // Get the post before updating to check previous likes
+      const existingPost = await dao.findPostById(postId);
+      if (!existingPost) {
+        res.status(404).json({ error: "Post not found" });
+        return;
+      }
+
+      const previousLikes = existingPost.likes || [];
+      const previousLikesArray = previousLikes.map((like) =>
+        typeof like === "object" ? like._id || like.id : like
+      );
+      const isLiking =
+        !previousLikesArray.includes(currentUser._id) &&
+        likesArray.includes(currentUser._id);
+
       const updatedPost = await dao.likePost(postId, likesArray);
       if (!updatedPost) {
         res.status(404).json({ error: "Post not found" });
@@ -256,6 +282,21 @@ export default function PostRoutes(app) {
       if (!populatedPost) {
         res.status(404).json({ error: "Post not found after update" });
         return;
+      }
+
+      // Create notification if user is liking (not unliking) and it's not their own post
+      if (isLiking && populatedPost.creator._id !== currentUser._id) {
+        try {
+          await notificationsDao.createNotification({
+            user: populatedPost.creator._id,
+            actor: currentUser._id,
+            type: "LIKE",
+            post: postId,
+          });
+        } catch (notifError) {
+          console.error("Error creating like notification:", notifError);
+          // Don't fail the request if notification creation fails
+        }
       }
 
       res.json(populatedPost);

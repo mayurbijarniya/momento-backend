@@ -4,6 +4,7 @@ import multer from "multer";
 import path from "path";
 import { fileURLToPath } from "url";
 import bcrypt from "bcryptjs";
+import { requireRole } from "../middleware/auth.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -190,11 +191,11 @@ export default function UserRoutes(app) {
     try {
       const { userId } = req.params;
       const userUpdates = { ...req.body };
-      
+
       if (userUpdates.password) {
         userUpdates.password = await bcrypt.hash(userUpdates.password, 10);
       }
-      
+
       await dao.updateUser(userId, userUpdates);
       const updatedUser = await dao.findUserById(userId);
       if (!updatedUser) {
@@ -227,7 +228,21 @@ export default function UserRoutes(app) {
       const { userId } = req.params;
       const currentUser = req.session["currentUser"];
 
-      if (currentUser && currentUser._id === userId) {
+      if (!currentUser) {
+        res.status(401).json({ message: "You must be logged in" });
+        return;
+      }
+
+      // Allow users to delete their own account, or admins to delete any account
+      if (currentUser._id !== userId && currentUser.role !== "ADMIN") {
+        res
+          .status(403)
+          .json({ message: "You can only delete your own account" });
+        return;
+      }
+
+      // If user is deleting their own account, destroy session
+      if (currentUser._id === userId) {
         req.session.destroy();
       }
 
@@ -238,6 +253,17 @@ export default function UserRoutes(app) {
     }
   };
   app.delete("/api/users/:userId", deleteUser);
+
+  // Admin route: Get all users
+  const getAllUsers = async (req, res) => {
+    try {
+      const users = await dao.findAllUsers();
+      res.json(users);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch users" });
+    }
+  };
+  app.get("/api/admin/users", requireRole(["ADMIN"]), getAllUsers);
 
   return app;
 }
