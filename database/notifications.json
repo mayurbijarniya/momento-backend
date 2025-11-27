@@ -1,0 +1,109 @@
+[{
+  "_id": "12bad20a-0e4e-4f3f-91f4-c960f1f343b6",
+  "user": "0d798a3c-36da-44db-a427-8faf122bdb40",
+  "actor": "ac5730c2-090c-4908-b1ef-6afb4cd21156",
+  "type": "LIKE",
+  "post": "post-011",
+  "read": false,
+  "createdAt": {
+    "$date": "2025-11-25T22:00:11.119Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-25T22:00:11.119Z"
+  },
+  "__v": 0
+},
+{
+  "_id": "adf79055-b4b6-4b88-a4f5-4b86fe3d92e3",
+  "user": "0d798a3c-36da-44db-a427-8faf122bdb40",
+  "actor": "ac5730c2-090c-4908-b1ef-6afb4cd21156",
+  "type": "REVIEW",
+  "post": "post-011",
+  "review": "9af6f6f4-f870-4fc2-a7ef-0972d7897ccb",
+  "read": false,
+  "createdAt": {
+    "$date": "2025-11-25T22:00:20.918Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-25T22:00:20.918Z"
+  },
+  "__v": 0
+},
+{
+  "_id": "3886eaa8-c41d-4e48-9098-8d1a33a804e5",
+  "user": "ac5730c2-090c-4908-b1ef-6afb4cd21156",
+  "actor": "b7d3b844-22d9-48cf-a8ef-c68c2661b5d2",
+  "type": "REVIEW",
+  "post": "post-015",
+  "review": "30a06bef-a6b6-41e9-8da2-4e7542712a77",
+  "read": true,
+  "createdAt": {
+    "$date": "2025-11-25T22:01:49.496Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-25T22:02:27.121Z"
+  },
+  "__v": 0
+},
+{
+  "_id": "bd40f240-6b14-4dd1-aa3a-258523372b1a",
+  "user": "ac5730c2-090c-4908-b1ef-6afb4cd21156",
+  "actor": "b7d3b844-22d9-48cf-a8ef-c68c2661b5d2",
+  "type": "LIKE",
+  "post": "post-015",
+  "read": true,
+  "createdAt": {
+    "$date": "2025-11-25T22:03:03.793Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-25T22:07:30.229Z"
+  },
+  "__v": 0
+},
+{
+  "_id": "b83cf93a-e406-4f3e-a275-1d1416ea9576",
+  "user": "ac5730c2-090c-4908-b1ef-6afb4cd21156",
+  "actor": "b7d3b844-22d9-48cf-a8ef-c68c2661b5d2",
+  "type": "LIKE",
+  "post": "post-008",
+  "read": true,
+  "createdAt": {
+    "$date": "2025-11-25T22:03:10.947Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-25T22:07:30.229Z"
+  },
+  "__v": 0
+},
+{
+  "_id": "30242271-55a7-4e50-8510-c63b8a1345d8",
+  "user": "ac5730c2-090c-4908-b1ef-6afb4cd21156",
+  "actor": "b7d3b844-22d9-48cf-a8ef-c68c2661b5d2",
+  "type": "REVIEW",
+  "post": "post-008",
+  "review": "bbbccb89-719d-4a86-88d5-87ef2d84e427",
+  "read": true,
+  "createdAt": {
+    "$date": "2025-11-25T22:03:20.548Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-25T22:07:30.229Z"
+  },
+  "__v": 0
+},
+{
+  "_id": "3c50d7e2-f2ea-4504-ab4c-1652a47be8fb",
+  "user": "ac5730c2-090c-4908-b1ef-6afb4cd21156",
+  "actor": "b7d3b844-22d9-48cf-a8ef-c68c2661b5d2",
+  "type": "REVIEW",
+  "post": "post-001",
+  "review": "98be0c66-ec3f-4d3b-9918-986d2ba176bf",
+  "read": true,
+  "createdAt": {
+    "$date": "2025-11-25T22:03:41.800Z"
+  },
+  "updatedAt": {
+    "$date": "2025-11-25T22:07:30.229Z"
+  },
+  "__v": 0
+}]

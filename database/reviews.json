@@ -1,0 +1,122 @@
+[
+  {
+    "_id": "review-001",
+    "user": "a9f48144-c85f-47ac-934b-6c6aeac35280",
+    "post": "post-001",
+    "externalContentId": null,
+    "review": "This is a stunning capture of the sunset! The color gradient is absolutely breathtaking. The composition draws the eye naturally across the frame. Excellent work!",
+    "rating": 5,
+    "createdAt": "2024-01-25T11:30:00.000Z",
+    "updatedAt": "2024-01-25T11:30:00.000Z"
+  },
+  {
+    "_id": "review-002",
+    "user": "19ee578f-f3bc-49da-aedd-63ace6ec2d05",
+    "post": "post-002",
+    "externalContentId": null,
+    "review": "The design aesthetic here is very modern and clean. I appreciate the attention to detail in the color palette. This would work well in a professional portfolio.",
+    "rating": 4,
+    "createdAt": "2024-01-26T12:00:00.000Z",
+    "updatedAt": "2024-01-26T12:00:00.000Z"
+  },
+  {
+    "_id": "review-003",
+    "user": "a9f48144-c85f-47ac-934b-6c6aeac35280",
+    "post": "post-003",
+    "externalContentId": null,
+    "review": "Street photography at its finest! The candid moment captured here tells a story. The lighting and framing are spot on. This is what travel photography should be.",
+    "rating": 5,
+    "createdAt": "2024-01-27T15:00:00.000Z",
+    "updatedAt": "2024-01-27T15:00:00.000Z"
+  },
+  {
+    "_id": "review-004",
+    "user": "19ee578f-f3bc-49da-aedd-63ace6ec2d05",
+    "post": "post-004",
+    "externalContentId": null,
+    "review": "The cyberpunk aesthetic is well-executed. The digital manipulation is seamless. However, I think the composition could be stronger with more focal points.",
+    "rating": 4,
+    "createdAt": "2024-01-28T10:30:00.000Z",
+    "updatedAt": "2024-01-28T10:30:00.000Z"
+  },
+  {
+    "_id": "review-005",
+    "user": "a9f48144-c85f-47ac-934b-6c6aeac35280",
+    "post": "post-006",
+    "externalContentId": null,
+    "review": "Wildlife photography requires immense patience, and it shows here. The eagle is perfectly in focus, and the background blur creates excellent depth. Outstanding capture!",
+    "rating": 5,
+    "createdAt": "2024-01-30T09:00:00.000Z",
+    "updatedAt": "2024-01-30T09:00:00.000Z"
+  },
+  {
+    "_id": "review-006",
+    "user": "19ee578f-f3bc-49da-aedd-63ace6ec2d05",
+    "post": "post-010",
+    "externalContentId": null,
+    "review": "Santorini's architecture is beautifully captured. The blue and white contrast is striking. The angle chosen provides a unique perspective of this iconic location.",
+    "rating": 5,
+    "createdAt": "2024-02-03T16:30:00.000Z",
+    "updatedAt": "2024-02-03T16:30:00.000Z"
+  },
+  {
+    "_id": "review-007",
+    "user": "a9f48144-c85f-47ac-934b-6c6aeac35280",
+    "externalContentId": "abc123",
+    "post": null,
+    "review": "This Unsplash photo has excellent composition. The use of negative space is particularly effective. The color grading enhances the mood perfectly.",
+    "rating": 5,
+    "createdAt": "2024-02-10T10:00:00.000Z",
+    "updatedAt": "2024-02-10T10:00:00.000Z"
+  },
+  {
+    "_id": "review-008",
+    "user": "19ee578f-f3bc-49da-aedd-63ace6ec2d05",
+    "externalContentId": "xyz789",
+    "post": null,
+    "review": "While the technical execution is good, I feel the subject matter could be more engaging. The lighting is well-handled, but the composition lacks dynamism.",
+    "rating": 3,
+    "createdAt": "2024-02-11T11:00:00.000Z",
+    "updatedAt": "2024-02-11T11:00:00.000Z"
+  },
+  {
+    "_id": "review-009",
+    "user": "a9f48144-c85f-47ac-934b-6c6aeac35280",
+    "externalContentId": "def456",
+    "post": null,
+    "review": "A masterful use of color theory here. The complementary colors create visual harmony. This would make an excellent print for a modern interior.",
+    "rating": 5,
+    "createdAt": "2024-02-12T12:00:00.000Z",
+    "updatedAt": "2024-02-12T12:00:00.000Z"
+  },
+  {
+    "_id": "review-010",
+    "user": "ac5730c2-090c-4908-b1ef-6afb4cd21156",
+    "post": "post-002",
+    "externalContentId": null,
+    "review": "Love the creative direction! The design is clean and professional.",
+    "rating": 5,
+    "createdAt": "2024-01-26T13:00:00.000Z",
+    "updatedAt": "2024-01-26T13:00:00.000Z"
+  },
+  {
+    "_id": "review-011",
+    "user": "381ca8a8-e744-41fc-88e8-6fcfd7640a5b",
+    "post": "post-003",
+    "externalContentId": null,
+    "review": "Amazing travel shot! Makes me want to visit Tokyo.",
+    "rating": 5,
+    "createdAt": "2024-01-27T16:00:00.000Z",
+    "updatedAt": "2024-01-27T16:00:00.000Z"
+  },
+  {
+    "_id": "review-012",
+    "user": "6967877a-5e62-4519-a028-6365dda64c03",
+    "post": "post-006",
+    "externalContentId": null,
+    "review": "Incredible wildlife photography! The detail is amazing.",
+    "rating": 5,
+    "createdAt": "2024-01-30T10:00:00.000Z",
+    "updatedAt": "2024-01-30T10:00:00.000Z"
+  }
+]

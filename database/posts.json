@@ -1,0 +1,328 @@
+[
+  {
+    "_id": "post-001",
+    "creator": "ac5730c2-090c-4908-b1ef-6afb4cd21156",
+    "caption": "Beautiful sunset over the mountains! 🌄 Nature never fails to amaze me. #sunset #mountains #nature #photography",
+    "imageUrl": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800",
+    "imageId": "img-post-001",
+    "location": "Rocky Mountains, Colorado",
+    "tags": ["sunset", "mountains", "nature", "photography"],
+    "likes": [
+      "381ca8a8-e744-41fc-88e8-6fcfd7640a5b",
+      "a9f48144-c85f-47ac-934b-6c6aeac35280",
+      "6967877a-5e62-4519-a028-6365dda64c03",
+      "0d798a3c-36da-44db-a427-8faf122bdb40"
+    ],
+    "savedBy": [
+      "381ca8a8-e744-41fc-88e8-6fcfd7640a5b",
+      "6967877a-5e62-4519-a028-6365dda64c03"
+    ],
+    "createdAt": "2024-01-25T10:30:00.000Z",
+    "updatedAt": "2024-01-25T10:30:00.000Z"
+  },
+  {
+    "_id": "post-002",
+    "creator": "381ca8a8-e744-41fc-88e8-6fcfd7640a5b",
+    "caption": "Working on a new design project. The creative process is always exciting! 🎨 #design #creative #art",
+    "imageUrl": "https://images.unsplash.com/photo-1558655146-364adaf1fcc9?w=800",
+    "imageId": "img-post-002",
+    "location": "Studio, New York",
+    "tags": ["design", "creative", "art"],
+    "likes": [
+      "ac5730c2-090c-4908-b1ef-6afb4cd21156",
+      "a9f48144-c85f-47ac-934b-6c6aeac35280",
+      "19ee578f-f3bc-49da-aedd-63ace6ec2d05",
+      "c1d18949-2864-481c-b501-63a006d60dd1"
+    ],
+    "savedBy": [
+      "ac5730c2-090c-4908-b1ef-6afb4cd21156",
+      "a9f48144-c85f-47ac-934b-6c6aeac35280",
+      "19ee578f-f3bc-49da-aedd-63ace6ec2d05"
+    ],
+    "createdAt": "2024-01-26T11:15:00.000Z",
+    "updatedAt": "2024-01-26T11:15:00.000Z"
+  },
+  {
+    "_id": "post-003",
+    "creator": "6967877a-5e62-4519-a028-6365dda64c03",
+    "caption": "Exploring the streets of Tokyo! The city never sleeps. 📸 #tokyo #travel #streetphotography #japan",
+    "imageUrl": "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800",
+    "imageId": "img-post-003",
+    "location": "Tokyo, Japan",
+    "tags": ["tokyo", "travel", "streetphotography", "japan"],
+    "likes": [
+      "ac5730c2-090c-4908-b1ef-6afb4cd21156",
+      "381ca8a8-e744-41fc-88e8-6fcfd7640a5b",
+      "0d798a3c-36da-44db-a427-8faf122bdb40",
+      "c1d18949-2864-481c-b501-63a006d60dd1",
+      "387b9993-4513-4e14-b1e6-7ea708186062"
+    ],
+    "savedBy": [
+      "ac5730c2-090c-4908-b1ef-6afb4cd21156",
+      "0d798a3c-36da-44db-a427-8faf122bdb40",
+      "c1d18949-2864-481c-b501-63a006d60dd1"
+    ],
+    "createdAt": "2024-01-27T14:20:00.000Z",
+    "updatedAt": "2024-01-27T14:20:00.000Z"
+  },
+  {
+    "_id": "post-004",
+    "creator": "0d798a3c-36da-44db-a427-8faf122bdb40",
+    "caption": "New digital art piece inspired by cyberpunk aesthetics. What do you think? 🤖 #digitalart #cyberpunk #art",
+    "imageUrl": "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800",
+    "imageId": "img-post-004",
+    "location": "Digital Studio",
+    "tags": ["digitalart", "cyberpunk", "art"],
+    "likes": [
+      "ac5730c2-090c-4908-b1ef-6afb4cd21156",
+      "381ca8a8-e744-41fc-88e8-6fcfd7640a5b",
+      "a9f48144-c85f-47ac-934b-6c6aeac35280",
+      "19ee578f-f3bc-49da-aedd-63ace6ec2d05"
+    ],
+    "savedBy": [
+      "381ca8a8-e744-41fc-88e8-6fcfd7640a5b",
+      "a9f48144-c85f-47ac-934b-6c6aeac35280"
+    ],
+    "createdAt": "2024-01-28T09:45:00.000Z",
+    "updatedAt": "2024-01-28T09:45:00.000Z"
+  },
+  {
+    "_id": "post-005",
+    "creator": "c1d18949-2864-481c-b501-63a006d60dd1",
+    "caption": "Street art in Brooklyn. The urban canvas is always changing. 🎨 #streetart #brooklyn #urban #graffiti",
+    "imageUrl": "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=800",
+    "imageId": "img-post-005",
+    "location": "Brooklyn, New York",
+    "tags": ["streetart", "brooklyn", "urban", "graffiti"],
+    "likes": [
+      "ac5730c2-090c-4908-b1ef-6afb4cd21156",
+      "6967877a-5e62-4519-a028-6365dda64c03",
+      "0d798a3c-36da-44db-a427-8faf122bdb40",
+      "387b9993-4513-4e14-b1e6-7ea708186062"
+    ],
+    "savedBy": [
+      "ac5730c2-090c-4908-b1ef-6afb4cd21156",
+      "6967877a-5e62-4519-a028-6365dda64c03"
+    ],
+    "createdAt": "2024-01-29T16:10:00.000Z",
+    "updatedAt": "2024-01-29T16:10:00.000Z"
+  },
+  {
+    "_id": "post-006",
+    "creator": "387b9993-4513-4e14-b1e6-7ea708186062",
+    "caption": "Majestic eagle in flight! Wildlife photography requires patience and timing. 🦅 #wildlife #nature #bird #photography",
+    "imageUrl": "https://images.unsplash.com/photo-1437622368342-7a3d73a34c8f?w=800",
+    "imageId": "img-post-006",
+    "location": "Yellowstone National Park",
+    "tags": ["wildlife", "nature", "bird", "photography"],
+    "likes": [
+      "ac5730c2-090c-4908-b1ef-6afb4cd21156",
+      "a9f48144-c85f-47ac-934b-6c6aeac35280",
+      "6967877a-5e62-4519-a028-6365dda64c03",
+      "19ee578f-f3bc-49da-aedd-63ace6ec2d05",
+      "5e5530d9-9a20-4f0b-9379-b31f4e93cd74"
+    ],
+    "savedBy": [
+      "ac5730c2-090c-4908-b1ef-6afb4cd21156",
+      "a9f48144-c85f-47ac-934b-6c6aeac35280",
+      "19ee578f-f3bc-49da-aedd-63ace6ec2d05"
+    ],
+    "createdAt": "2024-01-30T08:20:00.000Z",
+    "updatedAt": "2024-01-30T08:20:00.000Z"
+  },
+  {
+    "_id": "post-007",
+    "creator": "5e5530d9-9a20-4f0b-9379-b31f4e93cd74",
+    "caption": "Homemade pasta with fresh basil and tomatoes. Cooking is an art! 🍝 #food #cooking #pasta #italian",
+    "imageUrl": "https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=800",
+    "imageId": "img-post-007",
+    "location": "Home Kitchen",
+    "tags": ["food", "cooking", "pasta", "italian"],
+    "likes": [
+      "ac5730c2-090c-4908-b1ef-6afb4cd21156",
+      "381ca8a8-e744-41fc-88e8-6fcfd7640a5b",
+      "6967877a-5e62-4519-a028-6365dda64c03",
+      "0d798a3c-36da-44db-a427-8faf122bdb40",
+      "c1d18949-2864-481c-b501-63a006d60dd1",
+      "387b9993-4513-4e14-b1e6-7ea708186062"
+    ],
+    "savedBy": [
+      "381ca8a8-e744-41fc-88e8-6fcfd7640a5b",
+      "6967877a-5e62-4519-a028-6365dda64c03",
+      "0d798a3c-36da-44db-a427-8faf122bdb40"
+    ],
+    "createdAt": "2024-01-31T19:30:00.000Z",
+    "updatedAt": "2024-01-31T19:30:00.000Z"
+  },
+  {
+    "_id": "post-008",
+    "creator": "ac5730c2-090c-4908-b1ef-6afb4cd21156",
+    "caption": "Morning hike with amazing views! Starting the day right. ⛰️ #hiking #morning #nature #adventure",
+    "imageUrl": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800",
+    "imageId": "img-post-008",
+    "location": "Yosemite National Park",
+    "tags": ["hiking", "morning", "nature", "adventure"],
+    "likes": [
+      "381ca8a8-e744-41fc-88e8-6fcfd7640a5b",
+      "6967877a-5e62-4519-a028-6365dda64c03",
+      "387b9993-4513-4e14-b1e6-7ea708186062"
+    ],
+    "savedBy": ["6967877a-5e62-4519-a028-6365dda64c03"],
+    "createdAt": "2024-02-01T07:00:00.000Z",
+    "updatedAt": "2024-02-01T07:00:00.000Z"
+  },
+  {
+    "_id": "post-009",
+    "creator": "a9f48144-c85f-47ac-934b-6c6aeac35280",
+    "caption": "Review: This photograph captures the essence of urban life beautifully. The composition and lighting are exceptional. ⭐⭐⭐⭐⭐",
+    "imageUrl": "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800",
+    "imageId": "img-post-009",
+    "location": "Art Gallery",
+    "tags": ["review", "critique", "photography"],
+    "likes": [
+      "ac5730c2-090c-4908-b1ef-6afb4cd21156",
+      "381ca8a8-e744-41fc-88e8-6fcfd7640a5b",
+      "19ee578f-f3bc-49da-aedd-63ace6ec2d05"
+    ],
+    "savedBy": [
+      "ac5730c2-090c-4908-b1ef-6afb4cd21156",
+      "19ee578f-f3bc-49da-aedd-63ace6ec2d05"
+    ],
+    "createdAt": "2024-02-02T12:00:00.000Z",
+    "updatedAt": "2024-02-02T12:00:00.000Z"
+  },
+  {
+    "_id": "post-010",
+    "creator": "6967877a-5e62-4519-a028-6365dda64c03",
+    "caption": "Santorini vibes! The blue and white architecture is stunning. 🇬🇷 #santorini #greece #travel #architecture",
+    "imageUrl": "https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?w=800",
+    "imageId": "img-post-010",
+    "location": "Santorini, Greece",
+    "tags": ["santorini", "greece", "travel", "architecture"],
+    "likes": [
+      "ac5730c2-090c-4908-b1ef-6afb4cd21156",
+      "381ca8a8-e744-41fc-88e8-6fcfd7640a5b",
+      "a9f48144-c85f-47ac-934b-6c6aeac35280",
+      "0d798a3c-36da-44db-a427-8faf122bdb40",
+      "c1d18949-2864-481c-b501-63a006d60dd1",
+      "387b9993-4513-4e14-b1e6-7ea708186062",
+      "5e5530d9-9a20-4f0b-9379-b31f4e93cd74"
+    ],
+    "savedBy": [
+      "ac5730c2-090c-4908-b1ef-6afb4cd21156",
+      "381ca8a8-e744-41fc-88e8-6fcfd7640a5b",
+      "0d798a3c-36da-44db-a427-8faf122bdb40",
+      "c1d18949-2864-481c-b501-63a006d60dd1",
+      "387b9993-4513-4e14-b1e6-7ea708186062"
+    ],
+    "createdAt": "2024-02-03T15:45:00.000Z",
+    "updatedAt": "2024-02-03T15:45:00.000Z"
+  },
+  {
+    "_id": "post-011",
+    "creator": "0d798a3c-36da-44db-a427-8faf122bdb40",
+    "caption": "Abstract digital composition. Sometimes art doesn't need to represent anything specific. 🎨 #abstract #digitalart #art",
+    "imageUrl": "https://images.unsplash.com/photo-1557672172-298e090bd0f1?w=800",
+    "imageId": "img-post-011",
+    "location": "Digital Studio",
+    "tags": ["abstract", "digitalart", "art"],
+    "likes": [
+      "381ca8a8-e744-41fc-88e8-6fcfd7640a5b",
+      "a9f48144-c85f-47ac-934b-6c6aeac35280",
+      "19ee578f-f3bc-49da-aedd-63ace6ec2d05"
+    ],
+    "savedBy": ["a9f48144-c85f-47ac-934b-6c6aeac35280"],
+    "createdAt": "2024-02-04T10:20:00.000Z",
+    "updatedAt": "2024-02-04T10:20:00.000Z"
+  },
+  {
+    "_id": "post-012",
+    "creator": "c1d18949-2864-481c-b501-63a006d60dd1",
+    "caption": "Night photography in the city. Long exposure creates magic! 📸 #nightphotography #city #longexposure",
+    "imageUrl": "https://images.unsplash.com/photo-1514565131-fce0801e5785?w=800",
+    "imageId": "img-post-012",
+    "location": "Manhattan, New York",
+    "tags": ["nightphotography", "city", "longexposure"],
+    "likes": [
+      "ac5730c2-090c-4908-b1ef-6afb4cd21156",
+      "381ca8a8-e744-41fc-88e8-6fcfd7640a5b",
+      "6967877a-5e62-4519-a028-6365dda64c03",
+      "0d798a3c-36da-44db-a427-8faf122bdb40",
+      "387b9993-4513-4e14-b1e6-7ea708186062"
+    ],
+    "savedBy": [
+      "381ca8a8-e744-41fc-88e8-6fcfd7640a5b",
+      "6967877a-5e62-4519-a028-6365dda64c03",
+      "0d798a3c-36da-44db-a427-8faf122bdb40"
+    ],
+    "createdAt": "2024-02-05T20:00:00.000Z",
+    "updatedAt": "2024-02-05T20:00:00.000Z"
+  },
+  {
+    "_id": "post-013",
+    "creator": "387b9993-4513-4e14-b1e6-7ea708186062",
+    "caption": "Deer in the misty morning forest. Nature's beauty is everywhere. 🦌 #wildlife #nature #forest #photography",
+    "imageUrl": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800",
+    "imageId": "img-post-013",
+    "location": "Redwood National Park",
+    "tags": ["wildlife", "nature", "forest", "photography"],
+    "likes": [
+      "ac5730c2-090c-4908-b1ef-6afb4cd21156",
+      "a9f48144-c85f-47ac-934b-6c6aeac35280",
+      "6967877a-5e62-4519-a028-6365dda64c03",
+      "19ee578f-f3bc-49da-aedd-63ace6ec2d05"
+    ],
+    "savedBy": [
+      "ac5730c2-090c-4908-b1ef-6afb4cd21156",
+      "a9f48144-c85f-47ac-934b-6c6aeac35280"
+    ],
+    "createdAt": "2024-02-06T06:30:00.000Z",
+    "updatedAt": "2024-02-06T06:30:00.000Z"
+  },
+  {
+    "_id": "post-014",
+    "creator": "5e5530d9-9a20-4f0b-9379-b31f4e93cd74",
+    "caption": "Fresh sushi platter! The art of Japanese cuisine. 🍣 #sushi #japanese #food #culinary",
+    "imageUrl": "https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=800",
+    "imageId": "img-post-014",
+    "location": "Tokyo, Japan",
+    "tags": ["sushi", "japanese", "food", "culinary"],
+    "likes": [
+      "ac5730c2-090c-4908-b1ef-6afb4cd21156",
+      "381ca8a8-e744-41fc-88e8-6fcfd7640a5b",
+      "6967877a-5e62-4519-a028-6365dda64c03",
+      "0d798a3c-36da-44db-a427-8faf122bdb40",
+      "c1d18949-2864-481c-b501-63a006d60dd1"
+    ],
+    "savedBy": [
+      "381ca8a8-e744-41fc-88e8-6fcfd7640a5b",
+      "6967877a-5e62-4519-a028-6365dda64c03",
+      "0d798a3c-36da-44db-a427-8faf122bdb40",
+      "c1d18949-2864-481c-b501-63a006d60dd1"
+    ],
+    "createdAt": "2024-02-07T18:15:00.000Z",
+    "updatedAt": "2024-02-07T18:15:00.000Z"
+  },
+  {
+    "_id": "post-015",
+    "creator": "ac5730c2-090c-4908-b1ef-6afb4cd21156",
+    "caption": "Ocean waves crashing on the shore. The power of nature! 🌊 #ocean #waves #nature #beach",
+    "imageUrl": "https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=800",
+    "imageId": "img-post-015",
+    "location": "Big Sur, California",
+    "tags": ["ocean", "waves", "nature", "beach"],
+    "likes": [
+      "381ca8a8-e744-41fc-88e8-6fcfd7640a5b",
+      "6967877a-5e62-4519-a028-6365dda64c03",
+      "0d798a3c-36da-44db-a427-8faf122bdb40",
+      "387b9993-4513-4e14-b1e6-7ea708186062",
+      "5e5530d9-9a20-4f0b-9379-b31f4e93cd74"
+    ],
+    "savedBy": [
+      "6967877a-5e62-4519-a028-6365dda64c03",
+      "387b9993-4513-4e14-b1e6-7ea708186062"
+    ],
+    "createdAt": "2024-02-08T14:00:00.000Z",
+    "updatedAt": "2024-02-08T14:00:00.000Z"
+  }
+]
