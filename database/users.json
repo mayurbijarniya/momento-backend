@@ -47,7 +47,7 @@
     "bio": "Professional art critic | Photography expert | Writer",
     "imageUrl": "https://i.pravatar.cc/150?img=12",
     "imageId": "img-charlie",
-    "role": "CRITIC",
+    "role": "USER",
     "createdAt": "2025-11-25T20:31:39.461Z",
     "updatedAt": "2025-11-25T20:31:39.461Z"
   },
@@ -99,7 +99,7 @@
     "bio": "Art critic | Photography reviewer | Content curator",
     "imageUrl": "https://i.pravatar.cc/150?img=47",
     "imageId": "img-grace",
-    "role": "CRITIC",
+    "role": "USER",
     "createdAt": "2025-11-25T20:36:00.744Z",
     "updatedAt": "2025-11-25T20:36:00.744Z"
   },

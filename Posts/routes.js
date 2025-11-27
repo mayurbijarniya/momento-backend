@@ -100,6 +100,21 @@ export default function PostRoutes(app) {
   };
   app.get("/api/posts", getRecentPosts);
 
+  const searchPosts = async (req, res) => {
+    try {
+      const { searchTerm } = req.query;
+      if (!searchTerm) {
+        res.status(400).json({ error: "Search term is required" });
+        return;
+      }
+      const posts = await dao.searchPosts(searchTerm);
+      res.json({ documents: posts });
+    } catch (error) {
+      res.status(500).json({ error: "Failed to search posts" });
+    }
+  };
+  app.get("/api/posts/search", searchPosts);
+
   const getPostById = async (req, res) => {
     try {
       const { postId } = req.params;
@@ -218,7 +233,6 @@ export default function PostRoutes(app) {
         return;
       }
 
-      // Allow users to delete their own posts, or admins to delete any post
       if (
         post.creator._id !== currentUser._id &&
         currentUser.role !== "ADMIN"
@@ -257,7 +271,6 @@ export default function PostRoutes(app) {
         return;
       }
 
-      // Get the post before updating to check previous likes
       const existingPost = await dao.findPostById(postId);
       if (!existingPost) {
         res.status(404).json({ error: "Post not found" });
@@ -284,7 +297,6 @@ export default function PostRoutes(app) {
         return;
       }
 
-      // Create notification if user is liking (not unliking) and it's not their own post
       if (isLiking && populatedPost.creator._id !== currentUser._id) {
         try {
           await notificationsDao.createNotification({
@@ -295,7 +307,6 @@ export default function PostRoutes(app) {
           });
         } catch (notifError) {
           console.error("Error creating like notification:", notifError);
-          // Don't fail the request if notification creation fails
         }
       }
 
@@ -305,21 +316,6 @@ export default function PostRoutes(app) {
     }
   };
   app.put("/api/posts/:postId/like", likePost);
-
-  const searchPosts = async (req, res) => {
-    try {
-      const { searchTerm } = req.query;
-      if (!searchTerm) {
-        res.status(400).json({ error: "Search term is required" });
-        return;
-      }
-      const posts = await dao.searchPosts(searchTerm);
-      res.json({ documents: posts });
-    } catch (error) {
-      res.status(500).json({ error: "Failed to search posts" });
-    }
-  };
-  app.get("/api/posts/search", searchPosts);
 
   const getLikedPosts = async (req, res) => {
     try {

@@ -21,7 +21,6 @@ export default function FollowRoutes(app) {
 
       const follow = await dao.followUser(currentUser._id, followingId);
       
-      // Create notification for the user being followed
       try {
         await notificationsDao.createNotification({
           user: followingId,
@@ -30,7 +29,6 @@ export default function FollowRoutes(app) {
         });
       } catch (notifError) {
         console.error("Error creating follow notification:", notifError);
-        // Don't fail the request if notification creation fails
       }
       
       res.json(follow);

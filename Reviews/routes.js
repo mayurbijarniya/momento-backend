@@ -7,7 +7,6 @@ export default function ReviewRoutes(app) {
   const notificationsDao = NotificationsDao();
   const postsDao = PostsDao();
 
-  // Create a review
   const createReview = async (req, res) => {
     try {
       const currentUser = req.session["currentUser"];
@@ -41,7 +40,6 @@ export default function ReviewRoutes(app) {
       const newReview = await dao.createReview(reviewData);
       const populatedReview = await dao.findReviewById(newReview._id);
 
-      // Create notification if reviewing a post (not external content)
       if (postId) {
         try {
           const post = await postsDao.findPostById(postId);
@@ -56,7 +54,6 @@ export default function ReviewRoutes(app) {
           }
         } catch (notifError) {
           console.error("Error creating review notification:", notifError);
-          // Don't fail the request if notification creation fails
         }
       }
 
@@ -68,7 +65,6 @@ export default function ReviewRoutes(app) {
   };
   app.post("/api/reviews", createReview);
 
-  // Get reviews by post ID
   const getReviewsByPost = async (req, res) => {
     try {
       const { postId } = req.params;
@@ -86,7 +82,6 @@ export default function ReviewRoutes(app) {
   };
   app.get("/api/reviews/post/:postId", getReviewsByPost);
 
-  // Get reviews by external content ID
   const getReviewsByExternalContent = async (req, res) => {
     try {
       const { externalContentId } = req.params;
@@ -107,7 +102,6 @@ export default function ReviewRoutes(app) {
     getReviewsByExternalContent
   );
 
-  // Update a review
   const updateReview = async (req, res) => {
     try {
       const { reviewId } = req.params;
@@ -154,7 +148,6 @@ export default function ReviewRoutes(app) {
   };
   app.put("/api/reviews/:reviewId", updateReview);
 
-  // Delete a review
   const deleteReview = async (req, res) => {
     try {
       const { reviewId } = req.params;

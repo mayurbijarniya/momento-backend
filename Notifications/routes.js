@@ -3,7 +3,6 @@ import NotificationsDao from "./dao.js";
 export default function NotificationRoutes(app) {
   const dao = NotificationsDao();
 
-  // Get all notifications for current user
   const getNotifications = async (req, res) => {
     try {
       const currentUser = req.session["currentUser"];
@@ -21,7 +20,6 @@ export default function NotificationRoutes(app) {
   };
   app.get("/api/notifications", getNotifications);
 
-  // Get unread notifications count
   const getUnreadCount = async (req, res) => {
     try {
       const currentUser = req.session["currentUser"];
@@ -39,7 +37,6 @@ export default function NotificationRoutes(app) {
   };
   app.get("/api/notifications/unread-count", getUnreadCount);
 
-  // Mark notification as read
   const markNotificationAsRead = async (req, res) => {
     try {
       const { notificationId } = req.params;
@@ -58,7 +55,6 @@ export default function NotificationRoutes(app) {
   };
   app.put("/api/notifications/:notificationId/read", markNotificationAsRead);
 
-  // Mark all notifications as read
   const markAllAsRead = async (req, res) => {
     try {
       const currentUser = req.session["currentUser"];
@@ -76,7 +72,6 @@ export default function NotificationRoutes(app) {
   };
   app.put("/api/notifications/read-all", markAllAsRead);
 
-  // Delete notification
   const deleteNotification = async (req, res) => {
     try {
       const { notificationId } = req.params;

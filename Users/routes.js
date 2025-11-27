@@ -233,7 +233,6 @@ export default function UserRoutes(app) {
         return;
       }
 
-      // Allow users to delete their own account, or admins to delete any account
       if (currentUser._id !== userId && currentUser.role !== "ADMIN") {
         res
           .status(403)
@@ -241,7 +240,6 @@ export default function UserRoutes(app) {
         return;
       }
 
-      // If user is deleting their own account, destroy session
       if (currentUser._id === userId) {
         req.session.destroy();
       }
@@ -254,7 +252,6 @@ export default function UserRoutes(app) {
   };
   app.delete("/api/users/:userId", deleteUser);
 
-  // Admin route: Get all users
   const getAllUsers = async (req, res) => {
     try {
       const users = await dao.findAllUsers();

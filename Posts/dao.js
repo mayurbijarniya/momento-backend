@@ -81,13 +81,16 @@ export default function PostsDao() {
 
   const searchPosts = async (searchTerm) => {
     try {
-      const regex = new RegExp(searchTerm, "i");
+      if (!searchTerm || searchTerm.trim() === "") {
+        return [];
+      }
+      const regex = new RegExp(searchTerm.trim(), "i");
       return await model
         .find({
           $or: [
             { caption: { $regex: regex } },
             { location: { $regex: regex } },
-            { tags: { $in: [regex] } },
+            { tags: regex },
           ],
         })
         .populate("creator")
