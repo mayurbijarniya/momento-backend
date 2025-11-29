@@ -18,6 +18,7 @@ Momento Backend provides a RESTful API for user authentication, content manageme
 - **UUID** - Unique identifier generation
 - **Axios** - HTTP client for external API calls
 - **CORS** - Cross-origin resource sharing
+- **OpenRouter API** - AI chat integration for messaging
 
 ## Prerequisites
 
@@ -45,6 +46,7 @@ DATABASE_CONNECTION_STRING=mongodb://127.0.0.1:27017/momento
 SESSION_SECRET=your-secret-key-here
 CLIENT_URL=http://localhost:3000
 UNSPLASH_ACCESS_KEY=your-unsplash-access-key
+OPENROUTER_API_KEY=your-openrouter-api-key
 SERVER_ENV=development
 ```
 
@@ -94,6 +96,16 @@ momento-backend/
 │   ├── dao.js
 │   └── routes.js
 ├── Notifications/      # Notification system module
+│   ├── schema.js
+│   ├── model.js
+│   ├── dao.js
+│   └── routes.js
+├── Messages/           # AI chat messages module
+│   ├── schema.js
+│   ├── model.js
+│   ├── dao.js
+│   └── routes.js
+├── Conversations/      # User-to-user messaging module
 │   ├── schema.js
 │   ├── model.js
 │   ├── dao.js
@@ -161,6 +173,16 @@ momento-backend/
 - `PUT /api/notifications/read-all` - Mark all notifications as read
 - `DELETE /api/notifications/:notificationId` - Delete a notification
 
+### Messages
+- `POST /api/messages/chat` - Send message to AI assistant
+- `GET /api/messages` - Get AI chat history
+- `PUT /api/messages/:messageId/feedback` - Update message feedback
+- `DELETE /api/messages` - Clear chat history
+
+### Conversations
+- `POST /api/conversations/send` - Send message to another user
+- `GET /api/conversations/:userId` - Get conversation with a user
+
 ### External API
 - `GET /api/external/search` - Search Unsplash photos
 - `GET /api/external/details/:id` - Get Unsplash photo details
@@ -193,6 +215,7 @@ File uploads are handled using Multer middleware. Uploaded files are stored in t
 | `SESSION_SECRET` | Secret key for session encryption | Required |
 | `CLIENT_URL` | Frontend application URL | http://localhost:3000 |
 | `UNSPLASH_ACCESS_KEY` | Unsplash API access key | Required for external API |
+| `OPENROUTER_API_KEY` | OpenRouter API key for AI chat | Required for messaging |
 | `SERVER_ENV` | Server environment (development/production) | development |
 
 ## Development
@@ -225,6 +248,8 @@ The application uses MongoDB with the following main collections:
 - `follows` - User following relationships
 - `reviews` - Reviews for posts and external content
 - `notifications` - User notifications
+- `messages` - AI chat messages
+- `conversations` - User-to-user messages
 
 ## Error Handling
 

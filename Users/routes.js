@@ -142,7 +142,6 @@ export default function UserRoutes(app) {
         return;
       }
       
-      // Get current logged-in user
       const currentUser = req.session["currentUser"];
       const isOwnProfile = currentUser && currentUser._id === userId;
       
