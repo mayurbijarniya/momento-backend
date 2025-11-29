@@ -110,18 +110,23 @@ export default function UserRoutes(app) {
   const findAllUsers = async (req, res) => {
     try {
       const { role, name } = req.query;
+      let users;
+      
       if (role) {
-        const users = await dao.findUsersByRole(role);
-        res.json(users);
-        return;
+        users = await dao.findUsersByRole(role);
+      } else if (name) {
+        users = await dao.findUsersByPartialName(name);
+      } else {
+        users = await dao.findAllUsers();
       }
-      if (name) {
-        const users = await dao.findUsersByPartialName(name);
-        res.json(users);
-        return;
-      }
-      const users = await dao.findAllUsers();
-      res.json(users);
+      const sanitizedUsers = users.map(user => {
+        const userObj = user.toObject ? user.toObject() : { ...user };
+        delete userObj.email;
+        delete userObj.password;
+        return userObj;
+      });
+      
+      res.json(sanitizedUsers);
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch users" });
     }
@@ -136,7 +141,22 @@ export default function UserRoutes(app) {
         res.status(404).json({ message: "User not found" });
         return;
       }
-      res.json(user);
+      
+      // Get current logged-in user
+      const currentUser = req.session["currentUser"];
+      const isOwnProfile = currentUser && currentUser._id === userId;
+      
+      
+      const userResponse = user.toObject ? user.toObject() : { ...user };
+      
+      if (!isOwnProfile) {
+        delete userResponse.email;
+        delete userResponse.password;
+      } else {
+        delete userResponse.password;
+      }
+      
+      res.json(userResponse);
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch user" });
     }
