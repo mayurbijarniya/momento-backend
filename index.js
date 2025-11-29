@@ -12,6 +12,8 @@ import FollowRoutes from "./Follows/routes.js";
 import ReviewRoutes from "./Reviews/routes.js";
 import ExternalRoutes from "./External/routes.js";
 import NotificationRoutes from "./Notifications/routes.js";
+import MessageRoutes from "./Messages/routes.js";
+import ConversationRoutes from "./Conversations/routes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -56,6 +58,8 @@ FollowRoutes(app);
 ReviewRoutes(app);
 ExternalRoutes(app);
 NotificationRoutes(app);
+MessageRoutes(app);
+ConversationRoutes(app);
 
 app.get("/", (req, res) => {
   res.send("Welcome to Momento Social Network API!");
