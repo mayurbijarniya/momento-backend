@@ -48,5 +48,20 @@ export default function ConversationRoutes(app) {
   };
   app.get("/api/conversations/:userId", getConversation);
 
+  const getConversationPartners = async (req, res) => {
+    try {
+      const currentUser = req.session["currentUser"];
+      if (!currentUser) {
+        return res.status(401).json({ message: "Authentication required" });
+      }
+
+      const partnerIds = await dao.getConversationPartners(currentUser._id);
+      res.json({ partnerIds });
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch conversation partners" });
+    }
+  };
+  app.get("/api/conversations", getConversationPartners);
+
   return app;
 }

@@ -26,8 +26,34 @@ export default function ConversationsDao() {
     }
   };
 
+  const getConversationPartners = async (userId) => {
+    try {
+      const messages = await model.find({
+        $or: [
+          { senderId: userId },
+          { receiverId: userId },
+        ],
+      });
+
+      // Get unique user IDs that the current user has conversed with
+      const partnerIds = new Set();
+      messages.forEach((message) => {
+        if (message.senderId === userId) {
+          partnerIds.add(message.receiverId);
+        } else {
+          partnerIds.add(message.senderId);
+        }
+      });
+
+      return Array.from(partnerIds);
+    } catch (error) {
+      throw error;
+    }
+  };
+
   return {
     createMessage,
     findConversation,
+    getConversationPartners,
   };
 }
