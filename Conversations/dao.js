@@ -51,9 +51,51 @@ export default function ConversationsDao() {
     }
   };
 
+  const getUnreadMessageCount = async (userId) => {
+    try {
+      // Find all unread messages where current user is the receiver
+      const messages = await model.find({
+        receiverId: userId,
+        senderId: { $ne: userId },
+        read: false,
+      });
+
+      // Get unique sender IDs (users who have sent unread messages to current user)
+      const senderIds = new Set();
+      messages.forEach((message) => {
+        senderIds.add(message.senderId);
+      });
+
+      return senderIds.size;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const markMessagesAsRead = async (userId1, userId2) => {
+    try {
+      // Mark all messages from userId2 to userId1 as read
+      await model.updateMany(
+        {
+          senderId: userId2,
+          receiverId: userId1,
+          read: false,
+        },
+        {
+          $set: { read: true },
+        }
+      );
+      return { success: true };
+    } catch (error) {
+      throw error;
+    }
+  };
+
   return {
     createMessage,
     findConversation,
     getConversationPartners,
+    getUnreadMessageCount,
+    markMessagesAsRead,
   };
 }
