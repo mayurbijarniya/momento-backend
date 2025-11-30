@@ -33,19 +33,34 @@ export default function ConversationsDao() {
           { senderId: userId },
           { receiverId: userId },
         ],
-      });
+      }).sort({ createdAt: -1 });
 
-      // Get unique user IDs that the current user has conversed with
-      const partnerIds = new Set();
+      // Get unique user IDs with their last message time, content, and unread count
+      const partnerMap = new Map();
       messages.forEach((message) => {
-        if (message.senderId === userId) {
-          partnerIds.add(message.receiverId);
-        } else {
-          partnerIds.add(message.senderId);
+        const partnerId = message.senderId === userId ? message.receiverId : message.senderId;
+        if (!partnerMap.has(partnerId)) {
+          partnerMap.set(partnerId, {
+            partnerId: partnerId,
+            lastMessageTime: message.createdAt,
+            lastMessageContent: message.content,
+            lastMessageSenderId: message.senderId,
+          });
         }
       });
 
-      return Array.from(partnerIds);
+      // Calculate unread count for each partner
+      const partners = Array.from(partnerMap.values());
+      for (const partner of partners) {
+        const unreadCount = await model.countDocuments({
+          senderId: partner.partnerId,
+          receiverId: userId,
+          read: false,
+        });
+        partner.unreadCount = unreadCount;
+      }
+
+      return partners;
     } catch (error) {
       throw error;
     }

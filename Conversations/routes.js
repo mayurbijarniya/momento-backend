@@ -53,8 +53,8 @@ export default function ConversationRoutes(app) {
         return res.status(401).json({ message: "Authentication required" });
       }
 
-      const partnerIds = await dao.getConversationPartners(currentUser._id);
-      res.json({ partnerIds });
+      const partners = await dao.getConversationPartners(currentUser._id);
+      res.json({ partners });
     } catch (error) {
       res.status(500).json({ message: "Failed to fetch conversation partners" });
     }
