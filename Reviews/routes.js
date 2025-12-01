@@ -53,13 +53,11 @@ export default function ReviewRoutes(app) {
             });
           }
         } catch (notifError) {
-          console.error("Error creating review notification:", notifError);
         }
       }
 
       res.json(populatedReview);
     } catch (error) {
-      console.error("Error creating review:", error);
       res.status(500).json({ error: "Failed to create review" });
     }
   };
@@ -76,7 +74,6 @@ export default function ReviewRoutes(app) {
       const reviews = await dao.findReviewsByPost(postId);
       res.json({ documents: reviews });
     } catch (error) {
-      console.error("Error fetching reviews by post:", error);
       res.status(500).json({ error: "Failed to fetch reviews" });
     }
   };
@@ -93,7 +90,6 @@ export default function ReviewRoutes(app) {
       const reviews = await dao.findReviewsByExternalContent(externalContentId);
       res.json({ documents: reviews });
     } catch (error) {
-      console.error("Error fetching reviews by external content:", error);
       res.status(500).json({ error: "Failed to fetch reviews" });
     }
   };
@@ -142,7 +138,6 @@ export default function ReviewRoutes(app) {
       const updatedReview = await dao.findReviewById(reviewId);
       res.json(updatedReview);
     } catch (error) {
-      console.error("Error updating review:", error);
       res.status(500).json({ error: "Failed to update review" });
     }
   };
@@ -174,7 +169,6 @@ export default function ReviewRoutes(app) {
       await dao.deleteReview(reviewId);
       res.json({ message: "Review deleted successfully" });
     } catch (error) {
-      console.error("Error deleting review:", error);
       res.status(500).json({ error: "Failed to delete review" });
     }
   };

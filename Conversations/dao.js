@@ -26,8 +26,91 @@ export default function ConversationsDao() {
     }
   };
 
+  const getConversationPartners = async (userId) => {
+    try {
+      const messages = await model
+        .find({
+          $or: [{ senderId: userId }, { receiverId: userId }],
+        })
+        .sort({ createdAt: -1 });
+
+      // Get unique user IDs with their last message time, content, and unread count
+      const partnerMap = new Map();
+      messages.forEach((message) => {
+        const partnerId =
+          message.senderId === userId ? message.receiverId : message.senderId;
+        if (!partnerMap.has(partnerId)) {
+          partnerMap.set(partnerId, {
+            partnerId: partnerId,
+            lastMessageTime: message.createdAt,
+            lastMessageContent: message.content,
+            lastMessageSenderId: message.senderId,
+          });
+        }
+      });
+
+      // Calculate unread count for each partner
+      const partners = Array.from(partnerMap.values());
+      for (const partner of partners) {
+        const unreadCount = await model.countDocuments({
+          senderId: partner.partnerId,
+          receiverId: userId,
+          read: false,
+        });
+        partner.unreadCount = unreadCount;
+      }
+
+      return partners;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const getUnreadMessageCount = async (userId) => {
+    try {
+      // Find all unread messages where current user is the receiver
+      const messages = await model.find({
+        receiverId: userId,
+        senderId: { $ne: userId },
+        read: false,
+      });
+
+      // Get unique sender IDs (users who have sent unread messages to current user)
+      const senderIds = new Set();
+      messages.forEach((message) => {
+        senderIds.add(message.senderId);
+      });
+
+      return senderIds.size;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const markMessagesAsRead = async (userId1, userId2) => {
+    try {
+      // Mark all messages from userId2 to userId1 as read
+      await model.updateMany(
+        {
+          senderId: userId2,
+          receiverId: userId1,
+          read: false,
+        },
+        {
+          $set: { read: true },
+        }
+      );
+      return { success: true };
+    } catch (error) {
+      throw error;
+    }
+  };
+
   return {
     createMessage,
     findConversation,
+    getConversationPartners,
+    getUnreadMessageCount,
+    markMessagesAsRead,
   };
 }

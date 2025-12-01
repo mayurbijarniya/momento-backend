@@ -29,17 +29,20 @@ Momento Backend provides a RESTful API for user authentication, content manageme
 ## Installation
 
 1. Clone the repository:
+
 ```bash
 git clone <repository-url>
 cd momento-backend
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 ```
 
 3. Create a `.env` file in the root directory:
+
 ```env
 PORT=4000
 DATABASE_CONNECTION_STRING=mongodb://127.0.0.1:27017/momento
@@ -53,6 +56,7 @@ SERVER_ENV=development
 4. Start MongoDB locally or configure MongoDB Atlas connection string.
 
 5. Run the development server:
+
 ```bash
 npm run dev
 ```
@@ -125,12 +129,14 @@ momento-backend/
 ## API Endpoints
 
 ### Authentication
+
 - `POST /api/users/signup` - Register a new user
 - `POST /api/users/signin` - Sign in with email and password
 - `POST /api/users/signout` - Sign out current user
 - `POST /api/users/profile` - Get current user profile
 
 ### Users
+
 - `GET /api/users/:userId` - Get user by ID
 - `PUT /api/users/:userId` - Update user profile
 - `DELETE /api/users/:userId` - Delete user account
@@ -138,6 +144,7 @@ momento-backend/
 - `GET /api/admin/users` - Get all users (Admin only)
 
 ### Posts
+
 - `GET /api/posts` - Get recent posts with pagination
 - `GET /api/posts/:postId` - Get post by ID
 - `POST /api/posts` - Create a new post
@@ -149,17 +156,20 @@ momento-backend/
 - `GET /api/posts/user/:userId/liked` - Get liked posts by user
 
 ### Saves
+
 - `POST /api/saves` - Save a post
 - `DELETE /api/saves` - Unsave a post
 - `GET /api/saves/user/:userId` - Get saved posts by user
 
 ### Follows
+
 - `POST /api/follows` - Follow a user
 - `DELETE /api/follows/:followingId` - Unfollow a user
 - `GET /api/follows/followers/:userId` - Get user's followers
 - `GET /api/follows/following/:userId` - Get users being followed
 
 ### Reviews
+
 - `POST /api/reviews` - Create a review
 - `GET /api/reviews/post/:postId` - Get reviews for a post
 - `GET /api/reviews/external/:externalContentId` - Get reviews for external content
@@ -167,6 +177,7 @@ momento-backend/
 - `DELETE /api/reviews/:reviewId` - Delete a review
 
 ### Notifications
+
 - `GET /api/notifications` - Get user notifications
 - `GET /api/notifications/unread-count` - Get unread notification count
 - `PUT /api/notifications/:notificationId/read` - Mark notification as read
@@ -174,16 +185,22 @@ momento-backend/
 - `DELETE /api/notifications/:notificationId` - Delete a notification
 
 ### Messages
+
 - `POST /api/messages/chat` - Send message to AI assistant
 - `GET /api/messages` - Get AI chat history
 - `PUT /api/messages/:messageId/feedback` - Update message feedback
 - `DELETE /api/messages` - Clear chat history
 
 ### Conversations
+
 - `POST /api/conversations/send` - Send message to another user
 - `GET /api/conversations/:userId` - Get conversation with a user
+- `GET /api/conversations` - Get all conversation partners
+- `GET /api/conversations/unread-count` - Get unread message count
+- `PUT /api/conversations/:userId/read` - Mark conversation as read
 
 ### External API
+
 - `GET /api/external/search` - Search Unsplash photos
 - `GET /api/external/details/:id` - Get Unsplash photo details
 
@@ -208,24 +225,26 @@ File uploads are handled using Multer middleware. Uploaded files are stored in t
 
 ## Environment Variables
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `PORT` | Server port number | 4000 |
-| `DATABASE_CONNECTION_STRING` | MongoDB connection string | mongodb://127.0.0.1:27017/momento |
-| `SESSION_SECRET` | Secret key for session encryption | Required |
-| `CLIENT_URL` | Frontend application URL | http://localhost:3000 |
-| `UNSPLASH_ACCESS_KEY` | Unsplash API access key | Required for external API |
-| `OPENROUTER_API_KEY` | OpenRouter API key for AI chat | Required for messaging |
-| `SERVER_ENV` | Server environment (development/production) | development |
+| Variable                     | Description                                 | Default                           |
+| ---------------------------- | ------------------------------------------- | --------------------------------- |
+| `PORT`                       | Server port number                          | 4000                              |
+| `DATABASE_CONNECTION_STRING` | MongoDB connection string                   | mongodb://127.0.0.1:27017/momento |
+| `SESSION_SECRET`             | Secret key for session encryption           | Required                          |
+| `CLIENT_URL`                 | Frontend application URL                    | http://localhost:3000             |
+| `UNSPLASH_ACCESS_KEY`        | Unsplash API access key                     | Required for external API         |
+| `OPENROUTER_API_KEY`         | OpenRouter API key for AI chat              | Required for messaging            |
+| `SERVER_ENV`                 | Server environment (development/production) | development                       |
 
 ## Development
 
 ### Running in Development Mode
+
 ```bash
 npm run dev
 ```
 
 ### Production Build
+
 ```bash
 npm start
 ```
@@ -242,6 +261,7 @@ npm start
 ## Database Schema
 
 The application uses MongoDB with the following main collections:
+
 - `users` - User accounts and profiles
 - `posts` - User-generated posts
 - `saves` - Saved posts relationships
@@ -253,7 +273,8 @@ The application uses MongoDB with the following main collections:
 
 ## Error Handling
 
-All API endpoints include proper error handling with appropriate HTTP status codes:
+All API endpoints include comprehensive error handling with appropriate HTTP status codes:
+
 - 200 - Success
 - 201 - Created
 - 400 - Bad Request
@@ -261,6 +282,13 @@ All API endpoints include proper error handling with appropriate HTTP status cod
 - 403 - Forbidden
 - 404 - Not Found
 - 500 - Internal Server Error
+
+Error handling is implemented at multiple layers:
+
+- Route handlers catch and return appropriate error responses
+- DAO layer throws errors that are caught by route handlers
+- Database operations are wrapped in try-catch blocks
+- All errors return user-friendly messages without exposing internal details
 
 ## License
 

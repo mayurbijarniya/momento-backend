@@ -6,6 +6,7 @@ const conversationSchema = new mongoose.Schema(
     senderId: { type: String, ref: "UserModel", required: true },
     receiverId: { type: String, ref: "UserModel", required: true },
     content: { type: String, required: true },
+    read: { type: Boolean, default: false },
     createdAt: { type: Date, default: Date.now },
   },
   { collection: "conversations" }

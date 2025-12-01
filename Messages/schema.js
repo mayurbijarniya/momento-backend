@@ -10,6 +10,7 @@ const messageSchema = new mongoose.Schema(
       required: true 
     },
     content: { type: String, required: true },
+    imageUrl: { type: String, default: null },
     feedback: { 
       type: String, 
       enum: ["up", "down", null], 
