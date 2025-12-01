@@ -28,17 +28,17 @@ export default function ConversationsDao() {
 
   const getConversationPartners = async (userId) => {
     try {
-      const messages = await model.find({
-        $or: [
-          { senderId: userId },
-          { receiverId: userId },
-        ],
-      }).sort({ createdAt: -1 });
+      const messages = await model
+        .find({
+          $or: [{ senderId: userId }, { receiverId: userId }],
+        })
+        .sort({ createdAt: -1 });
 
       // Get unique user IDs with their last message time, content, and unread count
       const partnerMap = new Map();
       messages.forEach((message) => {
-        const partnerId = message.senderId === userId ? message.receiverId : message.senderId;
+        const partnerId =
+          message.senderId === userId ? message.receiverId : message.senderId;
         if (!partnerMap.has(partnerId)) {
           partnerMap.set(partnerId, {
             partnerId: partnerId,
