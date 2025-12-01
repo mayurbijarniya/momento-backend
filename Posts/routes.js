@@ -306,7 +306,6 @@ export default function PostRoutes(app) {
             post: postId,
           });
         } catch (notifError) {
-          console.error("Error creating like notification:", notifError);
         }
       }
 

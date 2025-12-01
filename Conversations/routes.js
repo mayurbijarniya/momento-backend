@@ -28,9 +28,6 @@ export default function ConversationRoutes(app) {
   };
   app.post("/api/conversations/send", sendMessage);
 
-  // IMPORTANT: Specific routes must come BEFORE parameterized routes
-  // Otherwise /unread-count will match /:userId route
-  
   const getUnreadMessageCount = async (req, res) => {
     try {
       const currentUser = req.session["currentUser"];

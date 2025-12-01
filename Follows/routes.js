@@ -28,7 +28,6 @@ export default function FollowRoutes(app) {
           type: "FOLLOW",
         });
       } catch (notifError) {
-        console.error("Error creating follow notification:", notifError);
       }
       
       res.json(follow);

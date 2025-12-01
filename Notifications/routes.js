@@ -14,7 +14,6 @@ export default function NotificationRoutes(app) {
       const notifications = await dao.findNotificationsByUser(currentUser._id);
       res.json({ documents: notifications });
     } catch (error) {
-      console.error("Error fetching notifications:", error);
       res.status(500).json({ error: "Failed to fetch notifications" });
     }
   };
@@ -31,7 +30,6 @@ export default function NotificationRoutes(app) {
       const count = await dao.countUnreadNotifications(currentUser._id);
       res.json({ count });
     } catch (error) {
-      console.error("Error fetching unread count:", error);
       res.status(500).json({ error: "Failed to fetch unread count" });
     }
   };
@@ -49,7 +47,6 @@ export default function NotificationRoutes(app) {
       await dao.markAsRead(notificationId);
       res.json({ message: "Notification marked as read" });
     } catch (error) {
-      console.error("Error marking notification as read:", error);
       res.status(500).json({ error: "Failed to mark notification as read" });
     }
   };
@@ -66,7 +63,6 @@ export default function NotificationRoutes(app) {
       await dao.markAllAsRead(currentUser._id);
       res.json({ message: "All notifications marked as read" });
     } catch (error) {
-      console.error("Error marking all notifications as read:", error);
       res.status(500).json({ error: "Failed to mark all notifications as read" });
     }
   };
@@ -84,7 +80,6 @@ export default function NotificationRoutes(app) {
       await dao.deleteNotification(notificationId);
       res.json({ message: "Notification deleted successfully" });
     } catch (error) {
-      console.error("Error deleting notification:", error);
       res.status(500).json({ error: "Failed to delete notification" });
     }
   };

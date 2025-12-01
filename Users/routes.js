@@ -28,7 +28,7 @@ export default function UserRoutes(app) {
       const userData = {
         ...req.body,
         password: hashedPassword,
-        lastLogin: new Date(), // Set lastLogin on signup
+        lastLogin: new Date(),
       };
       const currentUser = await dao.createUser(userData);
       req.session["currentUser"] = currentUser;
@@ -71,9 +71,7 @@ export default function UserRoutes(app) {
       );
 
       if (isPasswordValid) {
-        // Update lastLogin timestamp
         await dao.updateUser(currentUser._id, { lastLogin: new Date() });
-        // Fetch updated user to include lastLogin
         const updatedUser = await dao.findUserById(currentUser._id);
         req.session["currentUser"] = updatedUser;
         res.json(updatedUser);
@@ -126,7 +124,6 @@ export default function UserRoutes(app) {
       }
       const sanitizedUsers = users.map(user => {
         const userObj = user.toObject ? user.toObject() : { ...user };
-        // If lastLogin doesn't exist, use createdAt as fallback
         if (!userObj.lastLogin && userObj.createdAt) {
           userObj.lastLogin = userObj.createdAt;
         }
@@ -157,7 +154,6 @@ export default function UserRoutes(app) {
       
       const userResponse = user.toObject ? user.toObject() : { ...user };
       
-      // If lastLogin doesn't exist, use createdAt as fallback
       if (!userResponse.lastLogin && userResponse.createdAt) {
         userResponse.lastLogin = userResponse.createdAt;
       }
