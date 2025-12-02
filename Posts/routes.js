@@ -83,10 +83,11 @@ export default function PostRoutes(app) {
 
   const getRecentPosts = async (req, res) => {
     try {
-      const { limit, skip } = req.query;
+      const { limit, skip, sortBy } = req.query;
       const limitNum = limit ? parseInt(limit) : undefined;
       const skipNum = skip ? parseInt(skip) : 0;
-      let posts = await dao.findAllPosts();
+      const sortOption = sortBy || "latest";
+      let posts = await dao.findAllPosts(sortOption);
       if (skipNum > 0) {
         posts = posts.slice(skipNum);
       }

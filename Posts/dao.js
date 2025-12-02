@@ -1,4 +1,5 @@
 import model from "./model.js";
+import ReviewsModel from "../Reviews/model.js";
 import { v4 as uuidv4 } from "uuid";
 
 export default function PostsDao() {
@@ -11,9 +12,54 @@ export default function PostsDao() {
     }
   };
 
-  const findAllPosts = async () => {
+  const findAllPosts = async (sortBy = "latest") => {
     try {
-      return await model.find().populate("creator").sort({ createdAt: -1 });
+      let sortQuery = { createdAt: -1 };
+      
+      if (sortBy === "mostLiked") {
+        sortQuery = { likesCount: -1, createdAt: -1 };
+      } else if (sortBy === "mostReviewed") {
+        sortQuery = { reviewsCount: -1, createdAt: -1 };
+      } else if (sortBy === "latest") {
+        sortQuery = { createdAt: -1 };
+      } else if (sortBy === "oldest") {
+        sortQuery = { createdAt: 1 };
+      }
+      
+      const posts = await model.find().populate("creator");
+      
+      if (sortBy === "mostLiked") {
+        return posts.sort((a, b) => {
+          const aLikes = (a.likes || []).length;
+          const bLikes = (b.likes || []).length;
+          if (aLikes !== bLikes) {
+            return bLikes - aLikes;
+          }
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        });
+      }
+      
+      if (sortBy === "mostReviewed") {
+        const postsWithReviews = await Promise.all(
+          posts.map(async (post) => {
+            const reviewsCount = await ReviewsModel.countDocuments({ post: post._id });
+            return { ...post.toObject(), reviewsCount };
+          })
+        );
+        return postsWithReviews.sort((a, b) => {
+          if (a.reviewsCount !== b.reviewsCount) {
+            return b.reviewsCount - a.reviewsCount;
+          }
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        });
+      }
+      
+      return posts.sort((a, b) => {
+        if (sortBy === "oldest") {
+          return new Date(a.createdAt) - new Date(b.createdAt);
+        }
+        return new Date(b.createdAt) - new Date(a.createdAt);
+      });
     } catch (error) {
       throw error;
     }
