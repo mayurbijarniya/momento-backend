@@ -34,7 +34,6 @@ export default function ConversationsDao() {
         })
         .sort({ createdAt: -1 });
 
-      // Get unique user IDs with their last message time, content, and unread count
       const partnerMap = new Map();
       messages.forEach((message) => {
         const partnerId =
@@ -49,7 +48,6 @@ export default function ConversationsDao() {
         }
       });
 
-      // Calculate unread count for each partner
       const partners = Array.from(partnerMap.values());
       for (const partner of partners) {
         const unreadCount = await model.countDocuments({
@@ -68,14 +66,12 @@ export default function ConversationsDao() {
 
   const getUnreadMessageCount = async (userId) => {
     try {
-      // Find all unread messages where current user is the receiver
       const messages = await model.find({
         receiverId: userId,
         senderId: { $ne: userId },
         read: false,
       });
 
-      // Get unique sender IDs (users who have sent unread messages to current user)
       const senderIds = new Set();
       messages.forEach((message) => {
         senderIds.add(message.senderId);
@@ -89,7 +85,6 @@ export default function ConversationsDao() {
 
   const markMessagesAsRead = async (userId1, userId2) => {
     try {
-      // Mark all messages from userId2 to userId1 as read
       await model.updateMany(
         {
           senderId: userId2,
