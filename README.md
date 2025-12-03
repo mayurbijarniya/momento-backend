@@ -5,7 +5,7 @@ Backend API for the Momento Social Network, built with Node.js, Express, and Mon
 ## Overview
 
 The backend exposes a RESTful API for authentication, posts, reviews, follows, saves, notifications, messaging, external content, and admin workflows.  
-It follows the professor-style architecture: each feature has its own `schema.js`, `model.js`, `dao.js`, and `routes.js`.
+It follows a modular layered architecture: each feature has its own `schema.js`, `model.js`, `dao.js`, and `routes.js`.
 
 ## Tech Stack
 

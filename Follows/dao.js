@@ -20,7 +20,6 @@ export default function FollowsDao() {
       };
       return await model.create(newFollow);
     } catch (error) {
-("Error in followUser:", error);
       throw error;
     }
   };
@@ -32,7 +31,6 @@ export default function FollowsDao() {
         following: followingId,
       });
     } catch (error) {
-("Error in unfollowUser:", error);
       throw error;
     }
   };
@@ -42,7 +40,6 @@ export default function FollowsDao() {
       const follows = await model.find({ following: userId }).populate("follower");
       return follows.map((follow) => follow.follower).filter((user) => user !== null);
     } catch (error) {
-("Error in findFollowers:", error);
       throw error;
     }
   };
@@ -52,7 +49,6 @@ export default function FollowsDao() {
       const follows = await model.find({ follower: userId }).populate("following");
       return follows.map((follow) => follow.following).filter((user) => user !== null);
     } catch (error) {
-("Error in findFollowing:", error);
       throw error;
     }
   };
@@ -65,7 +61,6 @@ export default function FollowsDao() {
       });
       return follow !== null;
     } catch (error) {
-("Error in checkIfFollowing:", error);
       throw error;
     }
   };
