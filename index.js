@@ -20,7 +20,12 @@ const __dirname = path.dirname(__filename);
 
 const CONNECTION_STRING =
   process.env.DATABASE_CONNECTION_STRING || "mongodb://127.0.0.1:27017/momento";
-mongoose.connect(CONNECTION_STRING);
+
+mongoose.connect(CONNECTION_STRING).then(() => {
+  console.log("MongoDB connected successfully");
+}).catch((error) => {
+  console.error("MongoDB connection error:", error.message);
+});
 
 const app = express();
 
@@ -64,7 +69,12 @@ app.get("/", (req, res) => {
   res.send("Welcome to Momento Social Network API!");
 });
 
+app.get("/health", (req, res) => {
+  res.status(200).json({ status: "ok", timestamp: new Date().toISOString() });
+});
+
 const port = process.env.PORT || 4000;
 app.listen(port, "0.0.0.0", () => {
   console.log(`Server is running on port ${port}`);
+  console.log(`Server listening on 0.0.0.0:${port}`);
 });
