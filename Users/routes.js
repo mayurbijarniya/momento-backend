@@ -1,13 +1,8 @@
 import UsersDao from "./dao.js";
-import upload from "../middleware/upload.js";
+import upload from "../middleware/uploadBase64.js";
 import multer from "multer";
-import path from "path";
-import { fileURLToPath } from "url";
 import bcrypt from "bcryptjs";
 import { requireRole } from "../middleware/auth.js";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 export default function UserRoutes(app) {
   const dao = UsersDao();
@@ -179,15 +174,19 @@ export default function UserRoutes(app) {
         return;
       }
 
+      const imageData = req.file.buffer.toString("base64");
+      const imageMimeType = req.file.mimetype;
+      const imageId = `user-${Date.now()}-${Math.round(Math.random() * 1e9)}`;
       const serverUrl =
         process.env.SERVER_URL ||
         `http://localhost:${process.env.PORT || 4000}`;
-      const imageUrl = `${serverUrl}/uploads/${req.file.filename}`;
-      const imageId = req.file.filename;
+      const imageUrl = `${serverUrl}/api/images/user/${imageId}`;
 
       res.json({
         imageUrl,
         imageId,
+        imageData,
+        imageMimeType,
       });
     } catch (error) {
       res.status(500).json({ error: "Failed to upload image" });
@@ -223,6 +222,13 @@ export default function UserRoutes(app) {
 
       if (userUpdates.password) {
         userUpdates.password = await bcrypt.hash(userUpdates.password, 10);
+      }
+
+      if (userUpdates.imageData && userUpdates.imageId && userUpdates.imageMimeType) {
+        const serverUrl =
+          process.env.SERVER_URL ||
+          `http://localhost:${process.env.PORT || 4000}`;
+        userUpdates.imageUrl = `${serverUrl}/api/images/user/${userUpdates.imageId}`;
       }
 
       await dao.updateUser(userId, userUpdates);
@@ -290,6 +296,26 @@ export default function UserRoutes(app) {
     }
   };
   app.get("/api/admin/users", requireRole(["ADMIN"]), getAllUsers);
+
+  const getUserImage = async (req, res) => {
+    try {
+      const { imageId } = req.params;
+      const user = await dao.findUserByImageId(imageId);
+      if (!user || !user.imageData) {
+        res.status(404).json({ message: "Image not found" });
+        return;
+      }
+      const imageBuffer = Buffer.from(user.imageData, "base64");
+      res.set("Content-Type", user.imageMimeType || "image/jpeg");
+      res.set("Cache-Control", "no-cache, no-store, must-revalidate");
+      res.set("Pragma", "no-cache");
+      res.set("Expires", "0");
+      res.send(imageBuffer);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch image" });
+    }
+  };
+  app.get("/api/images/user/:imageId", getUserImage);
 
   return app;
 }

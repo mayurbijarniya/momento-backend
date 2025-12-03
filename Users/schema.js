@@ -10,6 +10,8 @@ const userSchema = new mongoose.Schema(
     bio: String,
     imageUrl: String,
     imageId: String,
+    imageData: String,
+    imageMimeType: String,
     role: {
       type: String,
       enum: ["USER", "ADMIN"],

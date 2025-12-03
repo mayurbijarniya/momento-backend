@@ -1,13 +1,7 @@
 import PostsDao from "./dao.js";
 import NotificationsDao from "../Notifications/dao.js";
-import upload from "../middleware/upload.js";
+import upload from "../middleware/uploadBase64.js";
 import multer from "multer";
-import path from "path";
-import { fileURLToPath } from "url";
-import fs from "fs";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 export default function PostRoutes(app) {
   const dao = PostsDao();
@@ -28,11 +22,13 @@ export default function PostRoutes(app) {
         return;
       }
 
+      const imageData = req.file.buffer.toString("base64");
+      const imageMimeType = req.file.mimetype;
+      const imageId = `post-${Date.now()}-${Math.round(Math.random() * 1e9)}`;
       const serverUrl =
         process.env.SERVER_URL ||
         `http://localhost:${process.env.PORT || 4000}`;
-      const imageUrl = `${serverUrl}/uploads/${req.file.filename}`;
-      const imageId = req.file.filename;
+      const imageUrl = `${serverUrl}/api/images/post/${imageId}`;
 
       const tags = req.body.tags
         ? req.body.tags
@@ -46,6 +42,8 @@ export default function PostRoutes(app) {
         caption: req.body.caption || "",
         imageUrl,
         imageId,
+        imageData,
+        imageMimeType,
         location: req.body.location || "",
         tags,
         likes: [],
@@ -164,22 +162,16 @@ export default function PostRoutes(app) {
 
       const postUpdates = { ...req.body };
       if (req.file) {
+        const imageData = req.file.buffer.toString("base64");
+        const imageMimeType = req.file.mimetype;
+        const imageId = `post-${Date.now()}-${Math.round(Math.random() * 1e9)}`;
         const serverUrl =
           process.env.SERVER_URL ||
           `http://localhost:${process.env.PORT || 4000}`;
-        postUpdates.imageUrl = `${serverUrl}/uploads/${req.file.filename}`;
-        postUpdates.imageId = req.file.filename;
-
-        if (existingPost.imageId) {
-          const oldImagePath = path.join(
-            __dirname,
-            "../uploads",
-            existingPost.imageId
-          );
-          if (fs.existsSync(oldImagePath)) {
-            fs.unlinkSync(oldImagePath);
-          }
-        }
+        postUpdates.imageUrl = `${serverUrl}/api/images/post/${imageId}`;
+        postUpdates.imageId = imageId;
+        postUpdates.imageData = imageData;
+        postUpdates.imageMimeType = imageMimeType;
       }
 
       if (postUpdates.tags && typeof postUpdates.tags === "string") {
@@ -242,13 +234,6 @@ export default function PostRoutes(app) {
         return;
       }
 
-      if (post.imageId) {
-        const imagePath = path.join(__dirname, "../uploads", post.imageId);
-        if (fs.existsSync(imagePath)) {
-          fs.unlinkSync(imagePath);
-        }
-      }
-
       await dao.deletePost(postId);
       res.json({ message: "Post deleted successfully" });
     } catch (error) {
@@ -278,15 +263,19 @@ export default function PostRoutes(app) {
         return;
       }
 
+      const normalizedLikesArray = likesArray.map((like) =>
+        typeof like === "object" ? (like._id || like.id || like) : String(like)
+      ).filter((id) => id && id !== "");
+
       const previousLikes = existingPost.likes || [];
       const previousLikesArray = previousLikes.map((like) =>
-        typeof like === "object" ? like._id || like.id : like
-      );
+        typeof like === "object" ? (like._id || like.id || like) : String(like)
+      ).filter((id) => id && id !== "");
       const isLiking =
         !previousLikesArray.includes(currentUser._id) &&
-        likesArray.includes(currentUser._id);
+        normalizedLikesArray.includes(currentUser._id);
 
-      const updatedPost = await dao.likePost(postId, likesArray);
+      const updatedPost = await dao.likePost(postId, normalizedLikesArray);
       if (!updatedPost) {
         res.status(404).json({ error: "Post not found" });
         return;
@@ -338,6 +327,26 @@ export default function PostRoutes(app) {
     }
   };
   app.get("/api/posts/user/:userId/liked", getLikedPosts);
+
+  const getPostImage = async (req, res) => {
+    try {
+      const { imageId } = req.params;
+      const post = await dao.findPostByImageId(imageId);
+      if (!post || !post.imageData) {
+        res.status(404).json({ message: "Image not found" });
+        return;
+      }
+      const imageBuffer = Buffer.from(post.imageData, "base64");
+      res.set("Content-Type", post.imageMimeType || "image/jpeg");
+      res.set("Cache-Control", "no-cache, no-store, must-revalidate");
+      res.set("Pragma", "no-cache");
+      res.set("Expires", "0");
+      res.send(imageBuffer);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch image" });
+    }
+  };
+  app.get("/api/images/post/:imageId", getPostImage);
 
   return app;
 }

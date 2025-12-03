@@ -95,6 +95,14 @@ export default function UsersDao() {
     }
   };
 
+  const findUserByImageId = async (imageId) => {
+    try {
+      return await model.findOne({ imageId });
+    } catch (error) {
+      throw error;
+    }
+  };
+
   return {
     createUser,
     findAllUsers,
@@ -107,5 +115,6 @@ export default function UsersDao() {
     deleteUser,
     findUsersByRole,
     findUsersByPartialName,
+    findUserByImageId,
   };
 }

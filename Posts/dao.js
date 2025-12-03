@@ -157,6 +157,14 @@ export default function PostsDao() {
     }
   };
 
+  const findPostByImageId = async (imageId) => {
+    try {
+      return await model.findOne({ imageId });
+    } catch (error) {
+      throw error;
+    }
+  };
+
   return {
     createPost,
     findAllPosts,
@@ -167,6 +175,7 @@ export default function PostsDao() {
     likePost,
     searchPosts,
     findPostsLikedByUser,
+    findPostByImageId,
   };
 }
 
