@@ -13,7 +13,7 @@ export default function ReviewsDao() {
 
   const findReviewsByPost = async (postId) => {
     try {
-      return await model.find({ post: postId }).populate("user").sort({ createdAt: -1 });
+      return await model.find({ post: postId }).populate("user", "-imageData").sort({ createdAt: -1 });
     } catch (error) {
       throw error;
     }
@@ -21,7 +21,7 @@ export default function ReviewsDao() {
 
   const findReviewsByExternalContent = async (externalContentId) => {
     try {
-      return await model.find({ externalContentId: externalContentId }).populate("user").sort({ createdAt: -1 });
+      return await model.find({ externalContentId: externalContentId }).populate("user", "-imageData").sort({ createdAt: -1 });
     } catch (error) {
       throw error;
     }
@@ -29,7 +29,7 @@ export default function ReviewsDao() {
 
   const findReviewById = async (reviewId) => {
     try {
-      return await model.findById(reviewId).populate("user");
+      return await model.findById(reviewId).populate("user", "-imageData");
     } catch (error) {
       throw error;
     }

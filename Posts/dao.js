@@ -26,7 +26,7 @@ export default function PostsDao() {
         sortQuery = { createdAt: 1 };
       }
       
-      const posts = await model.find().populate("creator");
+      const posts = await model.find().populate("creator", "-imageData").select("-imageData");
       
       if (sortBy === "mostLiked") {
         return posts.sort((a, b) => {
@@ -67,7 +67,7 @@ export default function PostsDao() {
 
   const findPostById = async (postId) => {
     try {
-      return await model.findById(postId).populate("creator");
+      return await model.findById(postId).populate("creator", "-imageData").select("-imageData");
     } catch (error) {
       throw error;
     }
@@ -75,7 +75,7 @@ export default function PostsDao() {
 
   const findPostsByCreator = async (userId) => {
     try {
-      return await model.find({ creator: userId }).populate("creator").sort({ createdAt: -1 });
+      return await model.find({ creator: userId }).populate("creator", "-imageData").select("-imageData").sort({ createdAt: -1 });
     } catch (error) {
       throw error;
     }
@@ -139,7 +139,8 @@ export default function PostsDao() {
             { tags: regex },
           ],
         })
-        .populate("creator")
+        .populate("creator", "-imageData")
+        .select("-imageData")
         .sort({ createdAt: -1 });
     } catch (error) {
       throw error;
@@ -150,7 +151,8 @@ export default function PostsDao() {
     try {
       return await model
         .find({ likes: userId })
-        .populate("creator")
+        .populate("creator", "-imageData")
+        .select("-imageData")
         .sort({ createdAt: -1 });
     } catch (error) {
       throw error;

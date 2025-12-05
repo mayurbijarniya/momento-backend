@@ -13,7 +13,7 @@ export default function UsersDao() {
 
   const findAllUsers = async () => {
     try {
-      return await model.find();
+      return await model.find().select("-imageData");
     } catch (error) {
       throw error;
     }
@@ -21,7 +21,7 @@ export default function UsersDao() {
 
   const findUserById = async (userId) => {
     try {
-      return await model.findById(userId);
+      return await model.findById(userId).select("-imageData");
     } catch (error) {
       throw error;
     }
@@ -32,7 +32,7 @@ export default function UsersDao() {
       const regex = new RegExp(partialName, "i");
       return await model.find({
         $or: [{ name: { $regex: regex } }, { username: { $regex: regex } }],
-      });
+      }).select("-imageData");
     } catch (error) {
       throw error;
     }
@@ -40,7 +40,7 @@ export default function UsersDao() {
 
   const findUsersByRole = async (role) => {
     try {
-      return await model.find({ role: role });
+      return await model.find({ role: role }).select("-imageData");
     } catch (error) {
       throw error;
     }
@@ -48,7 +48,7 @@ export default function UsersDao() {
 
   const findUserByUsername = async (username) => {
     try {
-      return await model.findOne({ username: username });
+      return await model.findOne({ username: username }).select("-imageData");
     } catch (error) {
       throw error;
     }
@@ -56,7 +56,7 @@ export default function UsersDao() {
 
   const findUserByEmail = async (email) => {
     try {
-      return await model.findOne({ email: email });
+      return await model.findOne({ email: email }).select("-imageData");
     } catch (error) {
       throw error;
     }
@@ -64,7 +64,7 @@ export default function UsersDao() {
 
   const findUserByCredentials = async (username, password) => {
     try {
-      return await model.findOne({ username: username, password: password });
+      return await model.findOne({ username: username, password: password }).select("-imageData");
     } catch (error) {
       throw error;
     }
@@ -72,7 +72,7 @@ export default function UsersDao() {
 
   const findUserByEmailCredentials = async (email, password) => {
     try {
-      return await model.findOne({ email: email, password: password });
+      return await model.findOne({ email: email, password: password }).select("-imageData");
     } catch (error) {
       throw error;
     }

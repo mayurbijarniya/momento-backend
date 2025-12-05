@@ -307,9 +307,7 @@ export default function UserRoutes(app) {
       }
       const imageBuffer = Buffer.from(user.imageData, "base64");
       res.set("Content-Type", user.imageMimeType || "image/jpeg");
-      res.set("Cache-Control", "no-cache, no-store, must-revalidate");
-      res.set("Pragma", "no-cache");
-      res.set("Expires", "0");
+      res.set("Cache-Control", "public, max-age=31536000, immutable");
       res.send(imageBuffer);
     } catch (error) {
       res.status(500).json({ error: "Failed to fetch image" });
