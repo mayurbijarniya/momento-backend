@@ -122,6 +122,8 @@ The server listens on `http://localhost:4000` by default.
 
 - Backend repository: [`momento-backend`](https://github.com/mayurbijarniya/momento-backend)
 - Frontend repository: [`momento-frontend`](https://github.com/mayurbijarniya/momento-frontend)
+- Deployed backend: [`momento-backend-8rrm.onrender.com`](https://momento-backend-8rrm.onrender.com/)
+- Deployed frontend: [`momento-frontend.vercel.app`](https://momento-frontend.vercel.app/)
 
 ## Security and Error Handling
 
