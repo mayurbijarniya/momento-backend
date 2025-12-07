@@ -4,7 +4,7 @@ Backend API for the Momento Social Network, built with Node.js, Express, and Mon
 
 ## Overview
 
-The backend exposes a RESTful API for authentication, posts, reviews, follows, saves, notifications, messaging, external content, and admin workflows.  
+The backend exposes a RESTful API for authentication, posts, reviews, follows, saves, notifications, external content, and admin workflows.  
 It follows a modular layered architecture: each feature has its own `schema.js`, `model.js`, `dao.js`, and `routes.js`.
 
 ## Tech Stack
@@ -15,7 +15,7 @@ It follows a modular layered architecture: each feature has its own `schema.js`,
 - bcryptjs for password hashing
 - Multer for file uploads
 - UUID for identifiers
-- Axios for external API calls (Unsplash, OpenRouter)
+- Axios for external API calls (Unsplash)
 - CORS for cross-origin access
 
 ## Features
@@ -42,12 +42,6 @@ It follows a modular layered architecture: each feature has its own `schema.js`,
 - Fetch reviews by post or external content identifier
 - Notification system for likes, follows, and reviews, including unread counts and mark-as-read endpoints
 
-### Messaging and AI
-
-- AI assistant chat endpoints backed by OpenRouter
-- User-to-user conversations with message history, unread counts, and mark-as-read
-- Conversation partners listing for the messaging sidebar
-
 ### External API Integration
 
 - Unsplash search and details endpoints, used by the frontend explore and details pages
@@ -61,8 +55,6 @@ Saves/           Saved posts
 Follows/         Follow relationships
 Reviews/         Review data
 Notifications/   Notification records
-Messages/        AI chat history
-Conversations/   Direct messages
 External/        Unsplash proxy routes
 middleware/      Auth and upload middleware
 index.js         Server bootstrap and configuration
@@ -119,7 +111,6 @@ The server listens on `http://localhost:4000` by default.
 | `SESSION_SECRET`             | Session secret                   |
 | `CLIENT_URL`                 | Frontend origin (CORS and cookies) |
 | `UNSPLASH_ACCESS_KEY`        | Unsplash API key                 |
-| `OPENROUTER_API_KEY`         | OpenRouter API key               |
 | `SERVER_ENV`                 | `development` or `production`    |
 
 ## Scripts
