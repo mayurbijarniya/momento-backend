@@ -3,7 +3,7 @@ import MessagesDao from "./dao.js";
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
 const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
 const OPENROUTER_IMAGE_URL = "https://openrouter.ai/api/v1/chat/completions";
-const AI_MODEL = "google/gemini-2.5-flash-lite:online";
+const AI_MODEL = "google/gemini-2.5-flash-lite";
 const IMAGE_MODEL = "google/gemini-2.5-flash-image";
 
 const SYSTEM_PROMPT = `You are Momento AI, the intelligent assistant for Momento social network.
